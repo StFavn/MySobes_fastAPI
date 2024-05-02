@@ -1,0 +1,29 @@
+.tree li {
+  background-color: #2C2C32; /* Цвет фона для прямоугольников */
+  padding: 20px; /* Внутренние отступы для текста */
+  margin-bottom: 5px; /* Отступ снизу для разделения прямоугольников */
+  border-radius: 20px; /* сглаживание уголков прямоугольника */
+}
+
+.tree details summary {
+  padding: 10px; /* Внутренние отступы для текста */
+  margin-bottom: 5px; /* Отступ снизу для разделения прямоугольников */
+  background-color: #eeeeee; /* Цвет фона для заголовков подтем */
+  font-weight: bold; /* Выделение заголовков жирным шрифтом */
+  border-radius: 10px;  /* сглаживание уголков прямоугольника */
+  cursor: pointer; /* Курсор при наведении на заголовок */
+}
+
+.tree details > summary::before {
+  padding-right: 5px; 
+}
+
+.tree ul {
+  list-style-type: none; /* Убираем стандартные элементы списка */
+}
+
+.tree ul li.tree-question {
+  background-color: #c2c2c2;
+  padding: 10px;
+  cursor: pointer; /* Курсор при наведении на подтему */
+}
