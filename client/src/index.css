@@ -40,13 +40,13 @@ main {
   margin: 0 auto;
 }
 
-main a {
+/* main a {
   text-decoration: none;
   color: var(--color-bg);
 }
 main a:hover {
   text-decoration: underline;
-}
+} */
 
 
 

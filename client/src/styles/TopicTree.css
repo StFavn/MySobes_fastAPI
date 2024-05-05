@@ -1,8 +1,5 @@
-.tree li {
-  background-color: #2C2C32; /* Цвет фона для прямоугольников */
-  padding: 20px; /* Внутренние отступы для текста */
-  margin-bottom: 5px; /* Отступ снизу для разделения прямоугольников */
-  border-radius: 20px; /* сглаживание уголков прямоугольника */
+.tree ul {
+  list-style-type: none; /* Убираем стандартные элементы списка */
 }
 
 .tree details summary {
@@ -18,12 +15,80 @@
   padding-right: 5px; 
 }
 
-.tree ul {
-  list-style-type: none; /* Убираем стандартные элементы списка */
+.tree dir {
+  background-color: #999999;
+  padding: 10px;
+  border-radius: 10px;
 }
 
-.tree ul li.tree-question {
-  background-color: #c2c2c2;
-  padding: 10px;
+.tree span {
+  align-items: center; /* Выравниваем элементы по вертикали */
+  position: relative;
+}
+
+.tree li {
+  background-color: #c2c2c2; /* Цвет фона для прямоугольников */
+  padding: 10px; /* Внутренние отступы для текста */
+  margin-bottom: 5px; /* Отступ снизу для разделения прямоугольников */
+  border-radius: 20px; /* сглаживание уголков прямоугольника */
   cursor: pointer; /* Курсор при наведении на подтему */
+  margin-right: 45px;
+}
+
+.tree li:hover {
+  background-color: #f0f0f0; /* Изменяем цвет фона при наведении */
+}
+
+.question {
+  display: block; /* Делаем кнопку блочным элементом */
+  width: 100%; /* Занимает всю доступную ширину элемента <li> */
+  height: 100%; /* Занимает всю доступную высоту элемента <li> */
+  /* text-decoration: none;  Убираем подчеркивание, так как это ссылка */
+}
+
+.edit-question-button {
+  position: absolute;
+  top: 50%;
+  right: 0px;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 39px;
+  background-color: #c2c2c2; /* Цвет круглого элемента */
+  border-radius: 50%;
+  cursor: pointer;
+  text-align: center; /* Центрирует текст по горизонтали */
+  line-height: 40px;
+}
+
+.edit-question-button:hover {
+  background-color: #f0f0f0; /* Изменяем цвет фона при наведении */
+}
+
+
+
+
+.question-modal {
+  position: fixed; /* Фиксированное позиционирование относительно окна просмотра */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный черный фон */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* Устанавливаем высокий уровень z-index, чтобы окно было поверх других элементов */
+}
+
+.question-modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.close-question-modal-button {
+  float: right;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
 }
