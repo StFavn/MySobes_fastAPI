@@ -1,9 +1,11 @@
 from sqlalchemy import select
+from fastapi import HTTPException
 
 from app.database.db_init import new_session
 from app.database.models import QuestionModel, TopicModel
 from app.schemas import SQuestion, SQuestionAdd
 from app.schemas import STopic, STopicAdd, STopicTree
+
 
 class TopicConnection:
     # --- POST ---
@@ -80,7 +82,8 @@ class TopicConnection:
             query = select(TopicModel).where(TopicModel.id == topic_id)
             result_query = await session.execute(query)
             topic = result_query.scalar()
-            if not topic: return []
+            if not topic:
+                raise HTTPException(status_code=404, detail="Topic not found")
 
             questions = await QuestionConnection.get_by_topic(topic_id)
             if not questions: questions = []
@@ -123,6 +126,8 @@ class QuestionConnection:
         async with new_session() as session:
             question_data = data.model_dump()
             question = QuestionModel(**question_data)
+            if not await TopicConnection.get_by_id(question.topic_id):
+                raise HTTPException(status_code=404, detail="Topic not found")
             session.add(question)
             await session.flush()
             await session.commit()
@@ -136,6 +141,8 @@ class QuestionConnection:
             query = select(QuestionModel).where(QuestionModel.id == question_id)
             result_query = await session.execute(query)
             question = result_query.scalar()
+            if not question:
+                raise HTTPException(status_code=404, detail="Question not found")
             await session.delete(question)
             await session.commit()
             return True
@@ -157,6 +164,9 @@ class QuestionConnection:
             query = select(QuestionModel).where(QuestionModel.id == question_id)
             result_query = await session.execute(query)
             question = result_query.scalar()
+            if not question:
+                raise HTTPException(status_code=404, detail="Question not found")
+            
             question_schema = SQuestion.model_validate(question)
             return question_schema
         
