@@ -5,6 +5,8 @@ from typing import Optional
 metadata = MetaData()
 
 class Model(DeclarativeBase):
+    __abstract__ = True
+    metadata = metadata
     pass
 
 class TopicModel(Model):
