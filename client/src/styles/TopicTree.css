@@ -2,6 +2,13 @@
   list-style-type: none; /* Убираем стандартные элементы списка */
 }
 
+.tree dir {
+  background-color: #2C2C32;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 5px;
+}
+
 .tree details summary {
   padding: 10px; /* Внутренние отступы для текста */
   margin-bottom: 5px; /* Отступ снизу для разделения прямоугольников */
@@ -13,12 +20,6 @@
 
 .tree details > summary::before {
   padding-right: 5px; 
-}
-
-.tree dir {
-  background-color: #999999;
-  padding: 10px;
-  border-radius: 10px;
 }
 
 .tree span {
@@ -91,4 +92,29 @@
   font-size: 24px;
   font-weight: bold;
   cursor: pointer;
+}
+
+
+
+.add-item-button {
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  color: white;
+  background-color: #56bbff;
+  padding: 0px;
+  display: block;
+  border-radius: 20px;
+  text-align: center; /* Центрирует текст по горизонтали */
+  line-height: 30px;
+  text-decoration: none;
+}
+
+.add-item-button:hover {
+  background-color: #107DC7; /* Изменяем цвет фона при наведении */
+}
+
+.add-item-button:active {
+  background-color: #2C2C32;
+  color: white; /* Изменяем цвет фона при нажатии */
 }

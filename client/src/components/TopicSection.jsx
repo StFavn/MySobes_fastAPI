@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import '../styles/TopicTree.css'
+import QuestionModal from './modals/QuestionInfo' 
+
 
 export default function TopicsSection() {
     const [loading, setLoading] = useState(false) // стейт для загрузки данных
@@ -31,18 +33,7 @@ export default function TopicsSection() {
     setSelectedQuestion(null);
   };
 
-  function QuestionModal({ question, closeQuestionModal }) {
-    return (
-      <div className="question-modal">
-        <div className="question-modal-content">
-          <a  href="#" className="close-question-modal-button" onClick={closeQuestionModal}>&times;</a>
-          <p>Вопрос: {question.question}</p>
-          <p>Ответ: {question.answer}</p>
-        </div>
-      </div>
-    );
-  }
-
+  // Нужно добавить сохранение состояния открытости details
   function TopicTree({ topic }) {
     return (
       <details open>
@@ -85,8 +76,18 @@ export default function TopicsSection() {
     )
   }
 
+  function addItem() {
+    return (
+      <a href="#" className="add-item-button">+</a>
+    )
+  }
+
   return (
-    returnTopicList()
+    <>
+      { returnTopicList() }
+      { addItem() }
+    </>
+
   )
 }
 // <li> я добавил только для того, чтобы был фон. Возможно это тупо
