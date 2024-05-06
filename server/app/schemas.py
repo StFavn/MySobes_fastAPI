@@ -6,7 +6,7 @@ from typing import Generic, TypeVar, List, Optional
 class SQuestionAdd(BaseModel):
     question: str
     answer: str
-    topic_id: int | None = None
+    topic_id: int
 
 class SQuestion(SQuestionAdd):
     id: int

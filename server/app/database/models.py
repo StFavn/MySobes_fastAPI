@@ -23,5 +23,5 @@ class QuestionModel(Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     question: Mapped[str] = mapped_column(nullable=False)
     answer: Mapped[str] = mapped_column(nullable=False)
-    topic_id: Mapped[Optional[int]] = mapped_column(ForeignKey("topics.id"), nullable=True)
+    topic_id: Mapped[int] = mapped_column(ForeignKey("topics.id"), nullable=False)
 
