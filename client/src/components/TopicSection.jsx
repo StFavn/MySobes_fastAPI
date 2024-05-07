@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import '../styles/TopicTree.css'
 import QuestionModal from './modals/QuestionInfo' 
+import AddItemModal from './modals/AddItem'
 
 
 export default function TopicsSection() {
@@ -8,6 +9,7 @@ export default function TopicsSection() {
     const [topics, setTopics] = useState([]) // стейт для данных одной спекции топика
     const [showQuestionModal, setShowQuestionModal] = useState(false);
     const [selectedQuestion, setSelectedQuestion] = useState(null);
+    const [showAddItemModal, setShowAddItemModal] = useState(false);
 
   // Функция для загрузки данных
   async function fetchTopics() {
@@ -18,20 +20,34 @@ export default function TopicsSection() {
     setLoading(false)
   }
 
-  // функция запускающая загрузку данных
-  useEffect(() => {
+  useEffect(() => {  // функция запускающая загрузку данных
       fetchTopics()
   }, [])
+
 
   const openQuestionModal = (question) => {
     setSelectedQuestion(question);
     setShowQuestionModal(true);
-  };
+  }
 
   const closeQuestionModal = () => {
     setShowQuestionModal(false);
     setSelectedQuestion(null);
-  };
+  }
+
+  const openAddItemModal = () => {
+    setShowAddItemModal(true);
+  }
+
+  const closeAddItemModal = () => {
+    setShowAddItemModal(false);
+  }
+
+  function addItem() {
+    return (
+      <a href="#" className="add-item-button" onClick={() => openAddItemModal()}>+</a>
+    )
+  }
 
   // Нужно добавить сохранение состояния открытости details
   function TopicTree({ topic }) {
@@ -58,36 +74,27 @@ export default function TopicsSection() {
     )
   }
 
-  function returnTopicList() {
+  function returnTopicList(topics) {
     return (
       <section className="tree">
         <dir>
-          { loading && <p>Загрузка...</p> }
-          { !loading && 
-            <ul>
-              { topics.map((topic) =>
-                  <TopicTree key={topic.id} topic={topic} />
-              )}
-            </ul> 
-          }
+          <ul>
+            { topics.map((topic) =>
+                <TopicTree key={topic.id} topic={topic} />
+            )}
+          </ul> 
         </dir>
-        {showQuestionModal && <QuestionModal question={selectedQuestion} closeQuestionModal={closeQuestionModal} />}
       </section>
-    )
-  }
-
-  function addItem() {
-    return (
-      <a href="#" className="add-item-button">+</a>
     )
   }
 
   return (
     <>
-      { returnTopicList() }
-      { addItem() }
+      { loading && <p>Загрузка...</p> }
+      { !loading && returnTopicList(topics) }
+      { addItem() } 
+      {showQuestionModal && <QuestionModal question={selectedQuestion} closeQuestionModal={closeQuestionModal} />}
+      {showAddItemModal && <AddItemModal topics={topics} closeAddItemModal={closeAddItemModal} />}
     </>
-
   )
 }
-// <li> я добавил только для того, чтобы был фон. Возможно это тупо

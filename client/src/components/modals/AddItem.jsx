@@ -1,36 +1,31 @@
 import { useState } from 'react'
+import CreateTopic from '../CreateTopic'
+import CreateQuestion from '../CreateQuestion'
 
-export default function AddItemModal({ topic_list, closeAddItemModal }) {
+import '../../styles/modals/AddItem.css'
+
+export default function AddItemModal({ topics, closeAddItemModal }) {
   const [addItemType, setAddItemType] = useState("Topic");
 
   function SelectMenu() {
     return (
-      <div className="select-menu-add-item-modal">
-        <select value={addItemType} onChange={(e) => setAddItemType(e.target.value)}>
-          <option value="Topic">Create Topic</option>
-          <option value="Question">Create Question</option>
-        </select>
+      <div className="addItem-select">
+        <input type="radio" id="tab1" name="tabs" checked={addItemType === "Topic"} onChange={() => setAddItemType("Topic")} />
+        <label className="addItem-select-topic" htmlFor="tab1">Create Topic</label>
+        <input type="radio" id="tab2" name="tabs" checked={addItemType === "Question"} onChange={() => setAddItemType("Question")} />
+        <label className="addItem-select-question" htmlFor="tab2">Create Question</label>
       </div>
-    )
-  }
-
-  function AddTopic(topic_list) {
-    return (
-      <div>{ topic_list }</div>
-    )
-  }
-
-  function AddQuestion(topic_list) {
-    return (
-      <div>Add Question Section</div>
     )
   }
   
   return (
-    <div className="add-item-modal">
-      <a href="#" className="close-question-modal-button" onClick={closeQuestionModal}>&times;</a>
-      {SelectMenu()}
-      {addItemType === "Topic" ? <AddTopic topic_list={topic_list}/> : <AddQuestion topic_list={topic_list}/>}
+    <div className="addItem-modal">
+      <div className="addItem-content">
+        <a href="#" className="close-addItem-button" onClick={ closeAddItemModal }>&times;</a>
+        {SelectMenu()}
+        {addItemType === "Topic" && <CreateTopic topics={topics} />}
+        {addItemType === "Question" && <CreateQuestion topics={topics} />}
+      </div>
     </div>
   )
 }
