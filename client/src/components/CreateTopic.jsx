@@ -4,7 +4,12 @@ import '../styles/CreateTopic.css'
 
 export default function CreateTopic({ topics }) {
   const [parentTopic, setParentTopic] = useState(null);
+  const [nameTopic, setNameTopic] = useState('');
   const parentMenuRef = useRef(null);
+
+  function handleTextareaChange(event) {
+    setNameTopic(event.target.value);
+  }
 
   useEffect(() => {
     // Восстанавливаем позицию прокрутки после изменения выбора родительского элемента
@@ -21,47 +26,71 @@ export default function CreateTopic({ topics }) {
 
   function ParentMenuTree({ topic }) {
     return (
-      <ul>
-        <li>
-          <input 
-            type="radio" 
-            id={topic.id} 
-            name="parent" 
-            onChange={() => handleInputChange(topic.id)} 
-            checked={parentTopic === topic.id}
-          />
-          <label htmlFor={topic.id}>{topic.name}</label>
-        </li>
+      <>
+        <input 
+          type="radio" 
+          id={topic.id} 
+          name="parent" 
+          onChange={() => handleInputChange(topic.id)} 
+          checked={parentTopic === topic.id}
+        />
+        <label htmlFor={topic.id}>{topic.name}</label>
+
         {topic.children.map((child) => (
           <ParentMenuTree key={child.id} topic={child} />
         ))}
-      </ul>
-    );
+      </>
+    )
   }
 
   function ParentMenu({ topics }) {
     return (
-      <div className="select-parent" ref={parentMenuRef}>
-        <input 
-          type="radio" 
-          id="null" 
-          name="parent" 
-          onChange={() => handleInputChange(null)} 
-          checked={parentTopic === null}
-        />
-        <label htmlFor="null">...</label>
-        <div className="select-parent-loaded">
+      <>
+        <p>Выберите родительскую тему:</p>
+        <div className="select-parent" ref={parentMenuRef}>
+          <input 
+            type="radio" 
+            id="null" 
+            name="parent" 
+            onChange={() => handleInputChange(null)} 
+            checked={parentTopic === null}
+          />
+          <label htmlFor="null">...</label>
+
           {topics.map((topic) => (
             <ParentMenuTree key={topic.id} topic={topic} />
           ))}
         </div>
-      </div>
-    );
+      </>
+    )
+  }
+
+  function textAreaTopicName() {
+    return (
+      <>
+        <p>Укажите название темы:</p>
+        <div className="topicName-input">
+          <textarea 
+            placeholder="Введите текст"
+            value={nameTopic}
+            onChange={handleTextareaChange}
+          />
+        </div>
+      </>
+    )
+  }
+
+  function createTopicButton() {
+    return (
+      <a href="#" className="createItem-button">Создать тему</a>
+    )
   }
 
   return (
     <div className="addItem-selected-content">
       <ParentMenu topics={topics} />
+      {textAreaTopicName()}
+      {createTopicButton()}
     </div>
   );
 }

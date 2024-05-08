@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
-import '../styles/TopicTree.css'
 import QuestionModal from './modals/QuestionInfo' 
 import AddItemModal from './modals/AddItem'
+
+import '../styles/TopicTree.css'
 
 
 export default function TopicsSection() {
@@ -23,7 +24,6 @@ export default function TopicsSection() {
   useEffect(() => {  // функция запускающая загрузку данных
       fetchTopics()
   }, [])
-
 
   const openQuestionModal = (question) => {
     setSelectedQuestion(question);
