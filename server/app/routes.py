@@ -1,6 +1,5 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Body
 from typing_extensions import Annotated
-from fastapi import Depends
 
 from app.database.connection import QuestionConnection
 from app.schemas import SQuestionAdd, SQuestion
@@ -17,9 +16,7 @@ questions_router = APIRouter(
 )
 
 @questions_router.post("")
-async def add_question(
-        question: Annotated[SQuestionAdd, Depends(SQuestionAdd)],
-) -> SQuestion:
+async def add_question(question: SQuestionAdd = Body(...)) -> SQuestion:
     question = await QuestionConnection.add_one(question)
     return question
 
@@ -47,9 +44,7 @@ topics_router = APIRouter(
 )
 
 @topics_router.post("")
-async def add_topic(
-        topic: Annotated[STopicAdd, Depends(STopicAdd)],
-) -> STopic:
+async def add_topic(topic: STopicAdd = Body(...)) -> STopic:
     topic = await TopicConnection.add_one(topic)
     return topic
 
