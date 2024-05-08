@@ -1,4 +1,4 @@
-export default function CreateQuestion({ topics }) {
+export default function CreateQuestionComponent({ topics }) {
   return (
     <div className="create-question-block">
       <p>Add Question Section</p>

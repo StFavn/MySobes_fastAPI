@@ -1,3 +1,13 @@
+:root {
+  --selector-field-bg: #4f4f4f;
+  --select-label-bg: #c2c2c2;
+  --select-label-bg-hover: #eeeeee;
+  --select-label-bg-active: #007bff;
+  --button-bg: #007bff;
+  --button-bg-hover: #0056b3; 
+  --button-bg-active: #00ff3c;
+}
+
 .addItem-selected-content {
   flex: 1;
 }
@@ -8,9 +18,9 @@
 
 .select-parent {
   border-radius: 8px;
-  background-color: #4f4f4f;
+  background-color: var(--selector-field-bg);
   
-  height: 150px;
+  height: 200px;
   overflow-y: auto;
   display: flex; 
   flex-direction: column;
@@ -25,15 +35,15 @@
 .select-parent label {
   width: 100%;
   padding: 5px;
-  background-color: #bbbbbb;
+  background-color: var(--select-label-bg);
 }
 
 .select-parent label:hover {
-  background-color: #cccccc;
+  background-color: var(--select-label-bg-hover);
 }
 
 .select-parent input[type="radio"]:checked + label {
-  background-color: #abf123;
+  background-color: var(--select-label-bg-active);
 }
 
 .select-parent-loaded {
@@ -54,7 +64,7 @@
   left: 50%; /* Размещаем слева на 50% относительно родительского блока */
   transform: translateX(-50%); /* Сдвигаем кнопку на 50% своей собственной ширины влево */
   padding: 10px 20px; /* Примерные значения для визуального выделения кнопки */
-  background-color: #007bff; /* Цвет фона кнопки */
+  background-color: var(--button-bg); /* Цвет фона кнопки */
   color: #fff; /* Цвет текста кнопки */
   border: none; /* Убираем границу */
   border-radius: 20px; /* Скругляем углы */
@@ -62,9 +72,9 @@
 }
 
 .createItem-button:hover {
-  background-color: #0056b3; /* Изменяем цвет фона при наведении */
+  background-color: var(--button-bg-hover); /* Изменяем цвет фона при наведении */
 }
 
 .createItem-button:active {
-  background-color: #00ff3c; /* Изменяем цвет фона при наведении */
+  background-color: var(--button-bg-active); /* Изменяем цвет фона при наведении */
 }

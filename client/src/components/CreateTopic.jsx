@@ -2,26 +2,47 @@ import { useState, useRef, useEffect} from 'react';
 
 import '../styles/CreateTopic.css'
 
-export default function CreateTopic({ topics }) {
-  const [parentTopic, setParentTopic] = useState(null);
-  const [nameTopic, setNameTopic] = useState('');
-  const parentMenuRef = useRef(null);
-
-  function handleTextareaChange(event) {
-    setNameTopic(event.target.value);
-  }
+export default function CreateTopicComponent({ topics }) {
+  const [parentTopic, setParentTopic] = useState(null); // parent_id
+  const [nameTopic, setNameTopic] = useState(''); // topic_name
+  const parentMenuRef = useRef(null); // для сохранения состояния прокрутки при выборе элемента из селектора
 
   useEffect(() => {
-    // Восстанавливаем позицию прокрутки после изменения выбора родительского элемента
-    if (parentMenuRef.current) {
+    if (parentMenuRef.current) { // Восстанавливаем позицию прокрутки после изменения выбора родительского элемента
       parentMenuRef.current.scrollTop = localStorage.getItem('scrollPosition') || 0;
     }
   }, [parentTopic]);
 
   function handleInputChange(topicId) {
     setParentTopic(topicId);
-    // Сохраняем позицию прокрутки при выборе родительского элемента
-    localStorage.setItem('scrollPosition', parentMenuRef.current.scrollTop);
+    localStorage.setItem('scrollPosition', parentMenuRef.current.scrollTop); // Сохраняем позицию прокрутки при выборе родительского элемента
+  }
+
+  // Функция для отправки POST запроса
+  async function createTopic() {
+    if (nameTopic !== '') {
+      try {
+        const response = await fetch('http://127.0.0.1:8000/topics', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ 
+            'name': nameTopic,
+            'parent_id': parentTopic })
+        });
+
+        if (response.ok) {
+          console.log('Тема успешно создана!');
+        } else {
+          console.error('Ошибка при создании темы');
+        }
+      } catch (error) {
+        console.error('Произошла ошибка:', error);
+      }
+    } else {
+      console.log('Пожалуйста, введите название темы');
+    }
   }
 
   function ParentMenuTree({ topic }) {
@@ -73,7 +94,7 @@ export default function CreateTopic({ topics }) {
           <textarea 
             placeholder="Введите текст"
             value={nameTopic}
-            onChange={handleTextareaChange}
+            onChange={(event) => setNameTopic(event.target.value)}
           />
         </div>
       </>
@@ -82,7 +103,7 @@ export default function CreateTopic({ topics }) {
 
   function createTopicButton() {
     return (
-      <a href="#" className="createItem-button">Создать тему</a>
+      <a href="#" className="createItem-button" onClick={createTopic}>Создать тему</a>
     )
   }
 
