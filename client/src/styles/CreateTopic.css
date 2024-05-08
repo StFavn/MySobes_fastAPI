@@ -1,0 +1,43 @@
+.select-parent {
+  border-radius: 8px;
+  background-color: #4f4f4f;
+  
+  height: 150px;
+  overflow-y: auto;
+  display: flex; 
+  flex-direction: column;
+  border: 1px solid black;
+}
+
+.select-parent input[type="radio"] {
+  display: none; /* Убираем кругляшки select */
+}
+
+.select-parent label {
+  width: 100%;
+  padding: 5px;
+  background-color: #bbbbbb;
+}
+
+.select-parent label:hover {
+  background-color: #cccccc;
+}
+
+.select-parent input[type="radio"]:checked + label {
+  background-color: #abf123;
+}
+
+.select-parent ul {
+  list-style-type: none; /* Убираем стандартные элементы списка */
+  margin-top: 0px;
+  margin-left: -20px;
+}
+
+.select-parent li {
+  display: flex;
+  flex-direction: column;
+}
+
+.select-parent-loaded {
+  margin-left: -20px
+}

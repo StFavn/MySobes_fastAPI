@@ -51,8 +51,8 @@
   background-color: white;
   padding: 20px;
   border-radius: 8px;
-  width: 400px; /* Фиксированная ширина */
-  height: 300px; /* Фиксированная высота */
+  width: 600px; /* Фиксированная ширина */
+  height: 500px; /* Фиксированная высота */
   
   display: flex; /* Используем flexbox */
   flex-direction: column; /* Дочерние элементы располагаются в столбце */
@@ -91,31 +91,3 @@
   background-color: #8f8f8f;
 }
 
-.select-parent {
-  border-radius: 8px;
-  background-color: #4f4f4f;
-  
-  height: 100px;
-  overflow-y: auto;
-  display: flex; 
-  flex-direction: column;
-  border: 1px solid black;
-}
-
-.select-parent input[type="radio"] {
-  display: none; /* Убираем кругляшки select */
-}
-
-.select-parent label {
-  width: 100%;
-  padding: 5px;
-  background-color: #bbbbbb;
-}
-
-.select-parent label:hover {
-  background-color: #cccccc;
-}
-
-.select-parent input[type="radio"]:checked + label {
-  background-color: #abf123;
-}

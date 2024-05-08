@@ -60,7 +60,7 @@ export default function TopicsSection() {
           ))}
 
           {topic.questions.map((question) => 
-            <span>
+            <span key={question.id}>
               <li key={question.id}>
                 <a href="#" className="question" onClick={() => openQuestionModal(question)}>
                   {question.question}
