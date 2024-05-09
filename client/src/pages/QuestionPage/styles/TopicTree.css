@@ -2,11 +2,15 @@
   list-style-type: none; /* Убираем стандартные элементы списка */
 }
 
-.tree dir {
+.tree div {
   background-color: #2C2C32;
   padding: 10px;
   border-radius: 10px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
+
+  height: calc(79vh);
+  overflow-y: auto;
+
 }
 
 .tree details summary {

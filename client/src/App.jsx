@@ -2,7 +2,7 @@ import Header from "./components/Header"
 
 import { Routes, Route} from "react-router-dom"
 
-import QuestionsPage from "./pages/QuestionsPage"
+import QuestionsPage from "./pages/QuestionPage/QuestionsPage"
 import SobesesPage from "./pages/SobesesPage"
 import AboutPage from "./pages/AboutPage"
 import HomePage from "./pages/HomePage"

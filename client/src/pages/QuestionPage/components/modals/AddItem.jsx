@@ -3,7 +3,6 @@ import CreateTopicComponent from '../CreateTopic'
 import CreateQuestionComponent from '../CreateQuestion'
 
 import '../../styles/modals/AddItem.css'
-import CreateTopicComponent from '../CreateTopic';
 
 export default function AddItemModal({ topics, closeAddItemModal }) {
   const [addItemType, setAddItemType] = useState("Topic");

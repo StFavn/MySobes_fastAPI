@@ -77,13 +77,13 @@ export default function TopicsSection() {
   function returnTopicList(topics) {
     return (
       <section className="tree">
-        <dir>
+        <div>
           <ul>
             { topics.map((topic) =>
                 <TopicTree key={topic.id} topic={topic} />
             )}
           </ul> 
-        </dir>
+        </div>
       </section>
     )
   }
