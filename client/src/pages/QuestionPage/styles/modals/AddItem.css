@@ -1,4 +1,43 @@
+:root {
+  --select-tab-no-select-bg:     #f0f0f0;
+  --select-tab-select-bg:        #ffffff;
+  --select-tab-hover:            #e0e0e0;
+  --black-modal-effect:          #00000075;
+  --addItem-content-bg:          #ffffff;
+  --close-addItem-button-text:   #ffffff;
+  --close-addItem-button-bg:     #2C2C32;
+  --close-addItem-button-hover:  #3c3c3c;
+  --close-addItem-button-active: #f85a65;
+}
 
+
+
+
+
+.addItem-modal {
+  position: fixed; /* Фиксированное позиционирование относительно окна просмотра */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--black-modal-effect); /* Полупрозрачный черный фон */
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  display: flex;
+}
+
+.addItem-content {
+  position: relative;
+  background-color: var(--addItem-content-bg);
+  padding: 20px;
+  border-radius: 8px;
+  width: 600px; /* Фиксированная ширина */
+  height: 500px; /* Фиксированная высота */
+  
+  display: flex; /* Используем flexbox */
+  flex-direction: column; /* Дочерние элементы располагаются в столбце */
+}
 
 .addItem-select {
   display: flex;
@@ -17,7 +56,7 @@
   padding: 10px;
   flex: 1; /* Равномерно распределяем пространство между вкладками */
   text-align: center; /* Выравниваем текст по центру */
-  background-color: #f0f0f0;
+  background-color: var(--select-tab-no-select-bg);
   cursor: pointer;
 }
 
@@ -26,39 +65,14 @@
 }
 
 .addItem-select label:hover {
-  background-color: #e0e0e0;
+  background-color: var(--select-tab-hover);
 }
 
 .addItem-select input[type="radio"]:checked + label {
-  background-color: white;
+  background-color: var(--select-tab-select-bg);
 }
 
 
-
-.addItem-modal {
-  position: fixed; /* Фиксированное позиционирование относительно окна просмотра */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный черный фон */
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-  display: flex;
-}
-
-.addItem-content {
-  position: relative;
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  width: 600px; /* Фиксированная ширина */
-  height: 500px; /* Фиксированная высота */
-  
-  display: flex; /* Используем flexbox */
-  flex-direction: column; /* Дочерние элементы располагаются в столбце */
-}
 
 .close-addItem-button {
   position: absolute;
@@ -70,20 +84,20 @@
   font-size: 24px;
   font-weight: bold;
   text-decoration: none;  /* Убираем подчеркивание текста */
-  color: white;
+  color: var(--close-addItem-button-text);
   text-align: center; /* Выравниваем текст по центру */
   line-height: 38px; /* Выравниваем по вертикали */
   
-  background-color: #2C2C32;
+  background-color: var(--close-addItem-button-bg);
   border-radius: 50%;
   cursor: pointer;
 }
 
 .close-addItem-button:hover {
-  background-color: #3C3C3C;
+  background-color: var(--close-addItem-button-hover);
 }
 
 .close-addItem-button:active {
-  background-color: #f85a65;
+  background-color: var(--close-addItem-button-active);
 }
 

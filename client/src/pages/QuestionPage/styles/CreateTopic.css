@@ -1,11 +1,11 @@
 :root {
-  --selector-field-bg: #4f4f4f;
-  --select-label-bg: #c2c2c2;
-  --select-label-bg-hover: #eeeeee;
+  --selector-field-bg:      #4f4f4f;
+  --select-label-bg:        #c2c2c2;
+  --select-label-bg-hover:  #eeeeee;
   --select-label-bg-active: #007bff;
-  --button-bg: #007bff;
-  --button-bg-hover: #0056b3; 
-  --button-bg-active: #00ff3c;
+  --button-bg:              #007bff;
+  --button-bg-hover:        #0056b3; 
+  --button-bg-active:       #00ff3c;
 }
 
 .addItem-selected-content {
@@ -44,10 +44,6 @@
 
 .select-parent input[type="radio"]:checked + label {
   background-color: var(--select-label-bg-active);
-}
-
-.select-parent-loaded {
-  margin-left: -20px
 }
 
 .topicName-input textarea {

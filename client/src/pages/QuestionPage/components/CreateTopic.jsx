@@ -110,8 +110,8 @@ export default function CreateTopicComponent({ topics }) {
   return (
     <div className="addItem-selected-content">
       <ParentMenu topics={topics} />
-      {textAreaTopicName()}
-      {createTopicButton()}
+      { textAreaTopicName() }
+      { createTopicButton() }
     </div>
   );
 }

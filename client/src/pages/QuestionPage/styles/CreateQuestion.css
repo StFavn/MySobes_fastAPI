@@ -1,0 +1,45 @@
+.select-parent-for-question {
+  border-radius: 8px;
+  background-color: var(--selector-field-bg);
+  
+  height: 100px;
+  overflow-y: auto;
+  display: flex; 
+  flex-direction: column;
+  border: 1px solid black;
+  margin-bottom: 10px;
+}
+
+.select-parent-for-question input[type="radio"] {
+  display: none; /* Убираем кругляшки select */
+}
+
+.select-parent-for-question label {
+  width: 100%;
+  padding: 5px;
+  background-color: var(--select-label-bg);
+}
+
+.select-parent-for-question label:hover {
+  background-color: var(--select-label-bg-hover);
+}
+
+.select-parent-for-question input[type="radio"]:checked + label {
+  background-color: var(--select-label-bg-active);
+}
+
+.questionName-input textarea {
+  width: 100%;
+	height: 100px;
+	border-radius: 8px;
+  resize: none; /* Запрещаем растягивание */
+  box-sizing: border-box; /* Учитываем границы и внутренние отступы в расчете ширины */
+}
+
+.answerName-input textarea {
+  width: 100%;
+	height: 100px;
+	border-radius: 8px;
+  resize: none; /* Запрещаем растягивание */
+  box-sizing: border-box; /* Учитываем границы и внутренние отступы в расчете ширины */
+}
