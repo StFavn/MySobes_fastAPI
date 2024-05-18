@@ -29,6 +29,7 @@ header > a:hover {
 
 body {
   font-family: 'Roboto', sans-serif;
+  overflow: hidden;
 }
 
 main {

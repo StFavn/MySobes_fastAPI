@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import QuestionModal from './modals/QuestionInfo' 
 import AddItemModal from './modals/AddItem'
+import Message from '../../../components/Message'
 
 import '../styles/TopicTree.css'
 
@@ -95,6 +96,7 @@ export default function TopicsSection() {
       { addItem() } 
       {showQuestionModal && <QuestionModal question={selectedQuestion} closeQuestionModal={closeQuestionModal} />}
       {showAddItemModal && <AddItemModal topics={topics} closeAddItemModal={closeAddItemModal} />}
+      { Message('тестовое сообщени') }
     </>
   )
 }
