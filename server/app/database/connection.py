@@ -8,7 +8,7 @@ from app.schemas import STopic, STopicAdd, STopicTree
 
 
 class TopicConnection:
-    # --- POST ---
+    # --- CREATE ---
     @classmethod
     async def add_one(cls, data: STopicAdd) -> STopic:
         async with new_session() as session:
@@ -120,7 +120,7 @@ class TopicConnection:
         
         
 class QuestionConnection:
-    # --- POST ---
+    # --- CREATE ---
     @classmethod
     async def add_one(cls, data: SQuestionAdd) -> SQuestion:
         async with new_session() as session:
@@ -130,6 +130,19 @@ class QuestionConnection:
                 raise HTTPException(status_code=404, detail="Topic not found")
             session.add(question)
             await session.flush()
+            await session.commit()
+            question_schema = SQuestion.model_validate(question)
+            return question_schema
+        
+    # --- UPDATE ---
+    @classmethod
+    async def update(cls, data: SQuestion) -> SQuestion:
+        async with new_session() as session:
+            question = await cls.get_by_id(data.id)
+            question_data = data.model_dump()
+            for key, value in question_data.items():
+                setattr(question, key, value)
+            session.add(question)
             await session.commit()
             question_schema = SQuestion.model_validate(question)
             return question_schema
