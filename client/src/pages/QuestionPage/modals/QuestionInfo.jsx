@@ -1,4 +1,4 @@
-import '../../styles/modals/QuestionInfo.css'
+import '../styles/modals/QuestionInfo.css'
 
 export default function QuestionModal({ question, closeQuestionModal }) {
   const handleOverlayClick = (event) => {

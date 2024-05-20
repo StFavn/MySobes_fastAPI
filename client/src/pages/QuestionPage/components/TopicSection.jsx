@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import QuestionModal from './modals/QuestionInfo' 
-import AddItemModal from './modals/AddItem'
+import QuestionModal from '../modals/QuestionInfo' 
+import AddItemModal from '../modals/AddItem/AddItem'
 import Message from '../../../components/Message'
 
 import '../styles/TopicTree.css'

@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import CreateTopicComponent from '../CreateTopic'
-import CreateQuestionComponent from '../CreateQuestion'
+import CreateTopicComponent from './CreateTopic'
+import CreateQuestionComponent from './CreateQuestion'
 
 import '../../styles/modals/AddItem.css'
 
