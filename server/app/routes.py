@@ -1,8 +1,7 @@
-from fastapi import APIRouter, Body
-from typing_extensions import Annotated
+from fastapi import APIRouter
 
 from app.database.connection import QuestionConnection
-from app.schemas import SQuestionAdd, SQuestion
+from app.schemas import SQuestionNoID, SQuestion
 
 from app.database.connection import TopicConnection
 from app.schemas import STopicAdd, STopic, STopicTree
@@ -16,7 +15,7 @@ questions_router = APIRouter(
 )
 
 @questions_router.post("")
-async def add_question(question: SQuestionAdd = Body(...)) -> SQuestion:
+async def add_question(question: SQuestionNoID) -> SQuestion:
     question = await QuestionConnection.add_one(question)
     return question
 
@@ -36,10 +35,11 @@ async def get_question_by_id(question_id: int) -> SQuestion:
     question = await QuestionConnection.get_by_id(question_id)
     return question
 
-@questions_router.post("/{question_id}")
-async def edit_question(question: SQuestion = Body(...)) -> SQuestion:
-    question = await QuestionConnection.update(question)
-    return question
+@questions_router.put("/{question_id}")
+async def edit_question(question_id: int, question: SQuestionNoID) -> SQuestion:
+    updated_question = await QuestionConnection.update(question_id, question)
+    return updated_question
+
 
 # --- TOPICS ---
 topics_router = APIRouter(
@@ -48,7 +48,7 @@ topics_router = APIRouter(
 )
 
 @topics_router.post("")
-async def add_topic(topic: STopicAdd = Body(...)) -> STopic:
+async def add_topic(topic: STopicAdd) -> STopic:
     topic = await TopicConnection.add_one(topic)
     return topic
 

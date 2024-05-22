@@ -3,7 +3,7 @@ from fastapi import HTTPException
 
 from app.database.db_init import new_session
 from app.database.models import QuestionModel, TopicModel
-from app.schemas import SQuestion, SQuestionAdd
+from app.schemas import SQuestion, SQuestionNoID
 from app.schemas import STopic, STopicAdd, STopicTree
 
 
@@ -122,7 +122,7 @@ class TopicConnection:
 class QuestionConnection:
     # --- CREATE ---
     @classmethod
-    async def add_one(cls, data: SQuestionAdd) -> SQuestion:
+    async def add_one(cls, data: SQuestionNoID) -> SQuestion:
         async with new_session() as session:
             question_data = data.model_dump()
             question = QuestionModel(**question_data)
@@ -131,21 +131,23 @@ class QuestionConnection:
             session.add(question)
             await session.flush()
             await session.commit()
-            question_schema = SQuestion.model_validate(question)
-            return question_schema
+            formated_question = SQuestion.model_validate(question)
+            return formated_question
         
     # --- UPDATE ---
     @classmethod
-    async def update(cls, data: SQuestion) -> SQuestion:
+    async def update(cls, question_id: int, data: SQuestionNoID) -> SQuestion:
         async with new_session() as session:
-            question = await cls.get_by_id(data.id)
+            question = await cls.get_by_id_model(session, question_id)
+            if not question:
+                raise HTTPException(status_code=404, detail="Question not found")
             question_data = data.model_dump()
             for key, value in question_data.items():
                 setattr(question, key, value)
-            session.add(question)
             await session.commit()
-            question_schema = SQuestion.model_validate(question)
-            return question_schema
+            await session.refresh(question)
+            formated_question = SQuestion.model_validate(question)
+            return formated_question
         
     # --- DELETE ---
     @classmethod
@@ -160,7 +162,6 @@ class QuestionConnection:
             await session.commit()
             return True
 
-    
     # --- GET ---
     @classmethod
     async def get_all(cls) -> list[SQuestion]:
@@ -170,18 +171,22 @@ class QuestionConnection:
             questions = result_query.scalars().all()
             questions_schema = [SQuestion.model_validate(question) for question in questions]
             return questions_schema
-        
+    
+    @classmethod
+    async def get_by_id_model(cls, session, question_id: int) -> QuestionModel:
+        query = select(QuestionModel).where(QuestionModel.id == question_id)
+        result_query = await session.execute(query)
+        question = result_query.scalar()
+        if not question:
+            raise HTTPException(status_code=404, detail="Question not found")
+        return question
+
     @classmethod
     async def get_by_id(cls, question_id: int) -> SQuestion:
         async with new_session() as session:
-            query = select(QuestionModel).where(QuestionModel.id == question_id)
-            result_query = await session.execute(query)
-            question = result_query.scalar()
-            if not question:
-                raise HTTPException(status_code=404, detail="Question not found")
-            
-            question_schema = SQuestion.model_validate(question)
-            return question_schema
+            question = await cls.get_by_id_model(session, question_id)
+            formated_question = SQuestion.model_validate(question)
+            return formated_question
         
     @classmethod 
     async def get_by_topic(cls, topic_id: int) -> list[SQuestion]:

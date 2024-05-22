@@ -3,12 +3,12 @@ from pydantic.config import ConfigDict
 from typing import Generic, TypeVar, List, Optional
 
 # --- QUESTION SCHEMAS ---
-class SQuestionAdd(BaseModel):
+class SQuestionNoID(BaseModel):
     question: str
     answer: str
     topic_id: int
 
-class SQuestion(SQuestionAdd):
+class SQuestion(SQuestionNoID):
     id: int
     # question: str
     # answer: str
