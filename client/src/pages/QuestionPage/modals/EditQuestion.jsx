@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import TopicSelectorForModal from '../../components/TopicSelectorForModal';
+import TopicSelectorForModal from '../components/TopicSelectorForModal';
 
 import '../styles/modals/EditQuestion.css'
 
@@ -23,7 +23,8 @@ export default function EditQuestionModal({ question, topics, closeEditQuestionM
           body: JSON.stringify({ 
             'question': questionName,
             'answer': answerName,
-            'topic_id': parentTopic })
+            'topic_id': parentTopic 
+          })
         })
 
         if (response.ok) {
@@ -34,6 +35,25 @@ export default function EditQuestionModal({ question, topics, closeEditQuestionM
       } catch (error) {
         console.error('Произошла ошибка:', error);
       }
+    }
+  }
+
+  async function deleteQuestion() {
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/questions/${question.id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+
+      if (response.ok) {
+        console.log('Вопрос успешно удален!');
+      } else {
+        console.error('Ошибка при удалении вопроса');
+      }
+    } catch (error) {
+      console.error('Произошла ошибка:', error);
     }
   }
 
@@ -69,31 +89,46 @@ export default function EditQuestionModal({ question, topics, closeEditQuestionM
 
   function submitQuestionButton() {
     return (
-      <a href="#" className="editQuestion-button" onClick={editQuestion}>Сохранить</a>
+      <a href="#" className="submit-editQuestion-button" onClick={editQuestion}>Сохранить</a>
     )
   }
 
-  function closeEditQuestionModal() {
+  function deleteQuestionButton() {
+    return (
+      <a href="#" className="delete-editQuestion-button" onClick={deleteQuestion}>Удалить</a>
+    )
+  }
+
+  function close() {
     setQuestionName(question.question);
     setAnswerName(question.answer);
     setParentTopic(question.topic_id);
     closeEditQuestionModal();
   }
 
+  function closeEditQuestionButton() {
+    return (
+      <a href="#" className="close-editQuestion-button" onClick={close}>&times;</a>
+    )
+  }
+
   return(
     <div className="editQuestion-modal">
-      <p>Редактировать вопрос</p>
-      <TopicSelectorForModal 
-        topics={topics}
-        nullSelect={false}
-        parentTopic={parentTopic} 
-        setParentTopic={setParentTopic} 
-        className="select-parent-for-question"
-      />
-      { textAreaQuestionName() }
-      { textAreaAnswerName() }
-      { submitQuestionButton() }
-      <a href="#" className="editQuestion-button" onClick={closeEditQuestionModal}>Отменить</a>
+      <div className="editQuestion-content">
+        <p>Редактировать вопрос</p>
+        <TopicSelectorForModal 
+          topics={topics}
+          nullSelect={false}
+          parentTopic={parentTopic} 
+          setParentTopic={setParentTopic} 
+          className="select-parent-for-question"
+        />
+        { textAreaQuestionName() }
+        { textAreaAnswerName() }
+        { submitQuestionButton() }
+        { deleteQuestionButton() }
+        { closeEditQuestionButton() }
+      </div>
     </div>
   )
 }

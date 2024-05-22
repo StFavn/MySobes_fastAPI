@@ -10,10 +10,6 @@
   --close-addItem-button-active: #f85a65;
 }
 
-
-
-
-
 .addItem-modal {
   position: fixed; /* Фиксированное позиционирование относительно окна просмотра */
   top: 0;
