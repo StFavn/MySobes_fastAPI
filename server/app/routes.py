@@ -4,7 +4,7 @@ from app.database.connection import QuestionConnection
 from app.schemas import SQuestionNoID, SQuestion
 
 from app.database.connection import TopicConnection
-from app.schemas import STopicAdd, STopic, STopicTree
+from app.schemas import STopicNoID, STopic, STopicTree
 
 from app.schemas import SResponse
 
@@ -47,7 +47,7 @@ topics_router = APIRouter(
 )
 
 @topics_router.post("")
-async def add_topic(topic: STopicAdd) -> STopic:
+async def add_topic(topic: STopicNoID) -> STopic:
     topic = await TopicConnection.add_one(topic)
     return topic
 
@@ -62,7 +62,7 @@ async def get_topic_by_id(topic_id: int) -> STopicTree:
     return topic
 
 @topics_router.put("/{topic_id}")
-async def edit_topic(topic_id: int, topic: STopicAdd) -> STopic:
+async def edit_topic(topic_id: int, topic: STopicNoID) -> STopic:
     updated_topic = await TopicConnection.update(topic_id, topic)
     return updated_topic
 
