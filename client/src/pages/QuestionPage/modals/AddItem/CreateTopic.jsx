@@ -3,7 +3,7 @@ import TopicSelectorForModal from '../../components/TopicSelectorForModal';
 
 import '../../styles/CreateTopic.css'
 
-export default function CreateTopicComponent({ topics }) {
+export default function CreateTopicComponent({ topics, fetchTopics }) {
   const [parentTopic, setParentTopic] = useState(null); // parent_id
   const [nameTopic, setNameTopic] = useState(''); // topic_name
 
@@ -24,6 +24,7 @@ export default function CreateTopicComponent({ topics }) {
 
         if (response.ok) {
           console.log('Тема успешно создана!');
+          fetchTopics();
         } else {
           console.error('Ошибка при создании темы');
         }

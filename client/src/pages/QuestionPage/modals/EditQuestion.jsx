@@ -3,7 +3,7 @@ import TopicSelectorForModal from '../components/TopicSelectorForModal';
 
 import '../styles/modals/EditQuestion.css'
 
-export default function EditQuestionModal({ question, topics, closeEditQuestionModal }) {
+export default function EditQuestionModal({ question, topics, closeEditQuestionModal, fetchTopics }) {
   const [questionName, setQuestionName] = useState(question.question);
   const [answerName, setAnswerName] = useState(question.answer);
   const [parentTopic, setParentTopic] = useState(question.topic_id);
@@ -29,6 +29,7 @@ export default function EditQuestionModal({ question, topics, closeEditQuestionM
 
         if (response.ok) {
           console.log('Вопрос успешно изменен!');
+          fetchTopics();
         } else {
           console.error('Ошибка при изменении вопроса');
         }
@@ -49,6 +50,8 @@ export default function EditQuestionModal({ question, topics, closeEditQuestionM
 
       if (response.ok) {
         console.log('Вопрос успешно удален!');
+        fetchTopics();
+        close();
       } else {
         console.error('Ошибка при удалении вопроса');
       }

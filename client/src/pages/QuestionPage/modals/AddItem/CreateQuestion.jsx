@@ -3,7 +3,7 @@ import TopicSelectorForModal from '../../components/TopicSelectorForModal';
 
 import '../../styles/CreateQuestion.css'
 
-export default function CreateQuestionComponent({ topics }) {
+export default function CreateQuestionComponent({ topics, fetchTopics }) {
   const [questionName, setQuestionName] = useState('');
   const [answerName, setAnswerName] = useState('');
   const [parentTopic, setParentTopic] = useState(null);
@@ -28,6 +28,7 @@ export default function CreateQuestionComponent({ topics }) {
 
         if (response.ok) {
           console.log('Вопрос успешно создан!');
+          fetchTopics();
         } else {
           console.error('Ошибка при создании вопроса');
         }

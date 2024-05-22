@@ -114,10 +114,12 @@ export default function TopicsSection() {
         question={selectedQuestion} 
         topics={topics} 
         closeEditQuestionModal={closeEditQuestionModal} 
+        fetchTopics={fetchTopics}
       />}
       {showAddItemModal && <AddItemModal 
-        topics={topics} 
-        closeAddItemModal={closeAddItemModal} 
+        topics={topics}
+        closeAddItemModal={closeAddItemModal}
+        fetchTopics={fetchTopics}
       />}
       { Message('тестовое сообщени') }
     </>

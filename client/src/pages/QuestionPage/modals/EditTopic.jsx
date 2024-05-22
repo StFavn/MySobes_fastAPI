@@ -3,7 +3,7 @@ import TopicSelectorForModal from '../components/TopicSelectorForModal';
 
 import '../styles/modals/EditTopic.css'
 
-export default function EditTopic({topic, topics, closeEditTopicModal}) {
+export default function EditTopic({ topic, topics, closeEditTopicModal, fetchTopics }) {
   const [topicName, setTopicName] = useState(topic.name);
   const [parentTopic, setParentTopic] = useState(topic.parent_id);
 
@@ -26,6 +26,7 @@ export default function EditTopic({topic, topics, closeEditTopicModal}) {
 
         if (response.ok) {
           console.log('Тема успешно изменена!');
+          fetchTopics();
         } else {
           console.error('Ошибка при изменении темы');
         }
@@ -46,6 +47,8 @@ export default function EditTopic({topic, topics, closeEditTopicModal}) {
 
       if (response.ok) {
         console.log('Тема успешно удалена!');
+        fetchTopics();
+        close();
       } else {
         console.error('Ошибка при удалении темы');
       }
