@@ -4,21 +4,36 @@ from fastapi import HTTPException
 from app.database.db_init import new_session
 from app.database.models import QuestionModel, TopicModel
 from app.schemas import SQuestion, SQuestionNoID
-from app.schemas import STopic, STopicAdd, STopicTree
+from app.schemas import STopic, STopicNoID, STopicTree
 
 
 class TopicConnection:
     # --- CREATE ---
     @classmethod
-    async def add_one(cls, data: STopicAdd) -> STopic:
+    async def add_one(cls, data: STopicNoID) -> STopic:
         async with new_session() as session:
             topic_data = data.model_dump()
             topic = TopicModel(**topic_data)
             session.add(topic)
             await session.flush()
             await session.commit()
-            topic_schema = STopic.model_validate(topic)
-            return topic_schema
+            topic_formated = STopic.model_validate(topic)
+            return topic_formated
+        
+    # --- UPDATE ---
+    @classmethod
+    async def update(cls, topic_id: int, data: STopicNoID) -> STopic:
+        async with new_session() as session:
+            topic = await cls.get_by_id_model(session, topic_id)
+            if not topic:
+                raise HTTPException(status_code=404, detail="Topic not found")
+            topic_data = data.model_dump()
+            for key, value in topic_data.items():
+                setattr(topic, key, value)
+            await session.commit()
+            await session.refresh(topic)
+            topic_formated = STopic.model_validate(topic)
+            return topic_formated
     
     # --- DELETE ---
     @classmethod
@@ -67,24 +82,28 @@ class TopicConnection:
                 questions = await QuestionConnection.get_by_topic(topic.id)
                 if not questions: questions = []
 
-                topic_schema = STopicTree(
+                topic_formated = STopicTree(
                     id=topic.id,
                     name=topic.name,
                     children=children,
                     questions=questions
                 )
-                topics_result.append(topic_schema)
+                topics_result.append(topic_formated)
             return topics_result
+
+    @classmethod
+    async def get_by_id_model(cls, session, topic_id: int) -> TopicModel:
+        query = select(TopicModel).where(TopicModel.id == topic_id)
+        result_query = await session.execute(query)
+        topic = result_query.scalar()
+        if not topic:
+            raise HTTPException(status_code=404, detail="Topic not found")
+        return topic
 
     @classmethod
     async def get_by_id(cls, topic_id: int) -> STopicTree:
         async with new_session() as session:
-            query = select(TopicModel).where(TopicModel.id == topic_id)
-            result_query = await session.execute(query)
-            topic = result_query.scalar()
-            if not topic:
-                raise HTTPException(status_code=404, detail="Topic not found")
-
+            topic = await cls.get_by_id_model(session, topic_id)
             questions = await QuestionConnection.get_by_topic(topic_id)
             if not questions: questions = []
 
@@ -109,13 +128,13 @@ class TopicConnection:
                 children = await cls.get_children(topic.id)
                 questions = await QuestionConnection.get_by_topic(topic.id)
                 if not questions: questions = []
-                topic_schema = STopicTree(
+                topic_formated = STopicTree(
                     id=topic.id,
                     name=topic.name,
                     children=children,
                     questions=questions
                 )
-                topics_result.append(topic_schema)
+                topics_result.append(topic_formated)
             return topics_result
         
         
@@ -131,8 +150,8 @@ class QuestionConnection:
             session.add(question)
             await session.flush()
             await session.commit()
-            formated_question = SQuestion.model_validate(question)
-            return formated_question
+            question_formated = SQuestion.model_validate(question)
+            return question_formated
         
     # --- UPDATE ---
     @classmethod
@@ -146,8 +165,8 @@ class QuestionConnection:
                 setattr(question, key, value)
             await session.commit()
             await session.refresh(question)
-            formated_question = SQuestion.model_validate(question)
-            return formated_question
+            question_formated = SQuestion.model_validate(question)
+            return question_formated
         
     # --- DELETE ---
     @classmethod
@@ -185,8 +204,8 @@ class QuestionConnection:
     async def get_by_id(cls, question_id: int) -> SQuestion:
         async with new_session() as session:
             question = await cls.get_by_id_model(session, question_id)
-            formated_question = SQuestion.model_validate(question)
-            return formated_question
+            question_formated = SQuestion.model_validate(question)
+            return question_formated
         
     @classmethod 
     async def get_by_topic(cls, topic_id: int) -> list[SQuestion]:

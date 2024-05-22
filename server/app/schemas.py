@@ -16,11 +16,11 @@ class SQuestion(SQuestionNoID):
     model_config = ConfigDict(from_attributes=True)
 
 # --- TOPIC SCHEMAS ---
-class STopicAdd(BaseModel):
+class STopicNoID(BaseModel):
     name: str
     parent_id: int | None = None
 
-class STopic(STopicAdd):
+class STopic(STopicNoID):
     id: int
     # name: str
     # parent_id: int | None = None
