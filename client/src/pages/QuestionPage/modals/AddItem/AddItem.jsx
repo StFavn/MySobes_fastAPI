@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import CreateTopicComponent from '../CreateTopic'
-import CreateQuestionComponent from '../CreateQuestion'
+import CreateTopicComponent from './CreateTopic'
+import CreateQuestionComponent from './CreateQuestion'
 
 import '../../styles/modals/AddItem.css'
 
-export default function AddItemModal({ topics, closeAddItemModal }) {
+export default function AddItemModal({ topics, closeAddItemModal, fetchTopics }) {
   const [addItemType, setAddItemType] = useState("Topic");
 
   function SelectMenu() {
@@ -23,8 +23,14 @@ export default function AddItemModal({ topics, closeAddItemModal }) {
       <div className="addItem-content">
         <a href="#" className="close-addItem-button" onClick={ closeAddItemModal }>&times;</a>
         {SelectMenu()}
-        {addItemType === "Topic" && <CreateTopicComponent topics={topics} />}
-        {addItemType === "Question" && <CreateQuestionComponent topics={topics} />}
+        {addItemType === "Topic" && <CreateTopicComponent 
+          topics={topics}
+          fetchTopics={fetchTopics}
+        />}
+        {addItemType === "Question" && <CreateQuestionComponent 
+          topics={topics} 
+          fetchTopics={fetchTopics}
+        />}
       </div>
     </div>
   )

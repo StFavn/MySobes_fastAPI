@@ -1,23 +1,12 @@
-import { useState, useRef, useEffect} from 'react';
+import { useState } from 'react';
+import TopicSelectorForModal from '../../components/TopicSelectorForModal';
 
-import '../styles/CreateQuestion.css'
+import '../../styles/CreateQuestion.css'
 
-export default function CreateQuestionComponent({ topics }) {
+export default function CreateQuestionComponent({ topics, fetchTopics }) {
   const [questionName, setQuestionName] = useState('');
   const [answerName, setAnswerName] = useState('');
   const [parentTopic, setParentTopic] = useState(null);
-  const parentMenuRef = useRef(null);
-
-  useEffect(() => {
-    if (parentMenuRef.current) { // Восстанавливаем позицию прокрутки после изменения выбора родительского элемента
-      parentMenuRef.current.scrollTop = localStorage.getItem('scrollPosition') || 0;
-    }
-  }, [parentTopic]);
-
-  function handleInputChange(topicId) {
-    setParentTopic(topicId);
-    localStorage.setItem('scrollPosition', parentMenuRef.current.scrollTop); // Сохраняем позицию прокрутки при выборе родительского элемента
-  }
 
   async function createQuestion() {
     if (!questionName) { console.log('Введите вопрос') }
@@ -39,6 +28,7 @@ export default function CreateQuestionComponent({ topics }) {
 
         if (response.ok) {
           console.log('Вопрос успешно создан!');
+          fetchTopics();
         } else {
           console.error('Ошибка при создании вопроса');
         }
@@ -46,38 +36,6 @@ export default function CreateQuestionComponent({ topics }) {
         console.error('Произошла ошибка:', error);
       }
     }
-  }
-
-  function ParentMenuTree({ topic }) {
-    return (
-      <>
-        <input 
-          type="radio" 
-          id={topic.id} 
-          name="parent" 
-          onChange={() => handleInputChange(topic.id)} 
-          checked={parentTopic === topic.id}
-        />
-        <label htmlFor={topic.id}>{topic.name}</label>
-
-        {topic.children.map((child) => (
-          <ParentMenuTree key={child.id} topic={child} />
-        ))}
-      </>
-    )
-  }
-
-  function ParentMenu({ topics }) {
-    return (
-      <>
-        <p>Выберите родительскую тему:</p>
-        <div className="select-parent-for-question" ref={parentMenuRef}>
-          {topics.map((topic) => (
-            <ParentMenuTree key={topic.id} topic={topic} />
-          ))}
-        </div>
-      </>
-    )
   }
 
   function textAreaQuestionName() {
@@ -118,7 +76,13 @@ export default function CreateQuestionComponent({ topics }) {
 
   return (
     <div className="addItem-selected-content">
-      <ParentMenu topics={topics} />
+      <TopicSelectorForModal 
+        topics={topics}
+        nullSelect={false}
+        parentTopic={parentTopic} 
+        setParentTopic={setParentTopic} 
+        className="select-parent-for-question"
+      />
       { textAreaQuestionName() }
       { textAreaAnswerName() }
       { createQuestionButton() }

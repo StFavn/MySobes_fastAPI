@@ -3,12 +3,12 @@ from pydantic.config import ConfigDict
 from typing import Generic, TypeVar, List, Optional
 
 # --- QUESTION SCHEMAS ---
-class SQuestionAdd(BaseModel):
+class SQuestionNoID(BaseModel):
     question: str
     answer: str
     topic_id: int
 
-class SQuestion(SQuestionAdd):
+class SQuestion(SQuestionNoID):
     id: int
     # question: str
     # answer: str
@@ -16,11 +16,11 @@ class SQuestion(SQuestionAdd):
     model_config = ConfigDict(from_attributes=True)
 
 # --- TOPIC SCHEMAS ---
-class STopicAdd(BaseModel):
+class STopicNoID(BaseModel):
     name: str
     parent_id: int | None = None
 
-class STopic(STopicAdd):
+class STopic(STopicNoID):
     id: int
     # name: str
     # parent_id: int | None = None

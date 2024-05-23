@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
-import QuestionModal from './modals/QuestionInfo' 
-import AddItemModal from './modals/AddItem'
+import QuestionModal from '../modals/QuestionInfo' 
+import EditQuestionModal from '../modals/EditQuestion'
+import AddItemModal from '../modals/AddItem/AddItem'
 import Message from '../../../components/Message'
 
 import '../styles/TopicTree.css'
@@ -9,9 +10,10 @@ import '../styles/TopicTree.css'
 export default function TopicsSection() {
     const [loading, setLoading] = useState(false) // стейт для загрузки данных
     const [topics, setTopics] = useState([]) // стейт для данных одной спекции топика
-    const [showQuestionModal, setShowQuestionModal] = useState(false);
-    const [selectedQuestion, setSelectedQuestion] = useState(null);
-    const [showAddItemModal, setShowAddItemModal] = useState(false);
+    const [selectedQuestion, setSelectedQuestion] = useState(null); // стейт для выбранного вопроса
+    const [showQuestionModal, setShowQuestionModal] = useState(false); // модальное окно QuestionInfo
+    const [showAddItemModal, setShowAddItemModal] = useState(false);  // модальное окно AddItem
+    const [showEditQuestionModal, setShowEditQuestionModal] = useState(false); // модальное окно EditQuestion
 
   // Функция для загрузки данных
   async function fetchTopics() {
@@ -33,6 +35,16 @@ export default function TopicsSection() {
 
   const closeQuestionModal = () => {
     setShowQuestionModal(false);
+    setSelectedQuestion(null);
+  }
+
+  const openEditQuestionModal = (question) => {
+    setSelectedQuestion(question);
+    setShowEditQuestionModal(true);
+  }
+
+  const closeEditQuestionModal = () => {
+    setShowEditQuestionModal(false);
     setSelectedQuestion(null);
   }
 
@@ -67,7 +79,7 @@ export default function TopicsSection() {
                   {question.question}
                 </a>
               </li>
-              <a href="#" className="edit-question-button">1</a>
+              <a href="#" className="edit-question-button" onClick={() => openEditQuestionModal(question)}>1</a>
             </span>
           )}
         </ul>
@@ -94,8 +106,21 @@ export default function TopicsSection() {
       { loading && <p>Загрузка...</p> }
       { !loading && returnTopicList(topics) }
       { addItem() } 
-      {showQuestionModal && <QuestionModal question={selectedQuestion} closeQuestionModal={closeQuestionModal} />}
-      {showAddItemModal && <AddItemModal topics={topics} closeAddItemModal={closeAddItemModal} />}
+      {showQuestionModal && <QuestionModal 
+        question={selectedQuestion} 
+        closeQuestionModal={closeQuestionModal} 
+      />}
+      {showEditQuestionModal && <EditQuestionModal 
+        question={selectedQuestion} 
+        topics={topics} 
+        closeEditQuestionModal={closeEditQuestionModal} 
+        fetchTopics={fetchTopics}
+      />}
+      {showAddItemModal && <AddItemModal 
+        topics={topics}
+        closeAddItemModal={closeAddItemModal}
+        fetchTopics={fetchTopics}
+      />}
       { Message('тестовое сообщени') }
     </>
   )
