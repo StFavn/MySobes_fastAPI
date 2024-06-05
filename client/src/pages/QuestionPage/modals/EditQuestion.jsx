@@ -92,13 +92,13 @@ export default function EditQuestionModal({ question, topics, closeEditQuestionM
 
   function submitQuestionButton() {
     return (
-      <a href="#" className="submit-editQuestion-button" onClick={editQuestion}>Сохранить</a>
+      <a href="#" className="editQuestion-button-submit" onClick={editQuestion}>Сохранить</a>
     )
   }
 
   function deleteQuestionButton() {
     return (
-      <a href="#" className="delete-editQuestion-button" onClick={deleteQuestion}>Удалить</a>
+      <a href="#" className="editQuestion-button-delete" onClick={deleteQuestion}>Удалить</a>
     )
   }
 
@@ -111,7 +111,7 @@ export default function EditQuestionModal({ question, topics, closeEditQuestionM
 
   function closeEditQuestionButton() {
     return (
-      <a href="#" className="close-editQuestion-button" onClick={close}>&times;</a>
+      <a href="#" className="editQuestion-button-close" onClick={close}>&times;</a>
     )
   }
 
@@ -134,4 +134,4 @@ export default function EditQuestionModal({ question, topics, closeEditQuestionM
       </div>
     </div>
   )
-}
+} 

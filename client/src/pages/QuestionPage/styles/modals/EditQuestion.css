@@ -1,5 +1,17 @@
 :root {
-  --editQuestion-content-bg:  #ffffff;
+  --editQuestion-content-bg:   #ffffff;
+  --editQuestion-b-close-txt:  #ffffff;
+  --editQuestion-b-close-bg:   #2C2C32;
+  --editQuestion-b-close-hov:  #3c3c3c; 
+  --editQuestion-b-close-act:  #f85a65;
+  --editQuestion-b-submit-txt: #fff;
+  --editQuestion-b-submit-bg:  #007bff;
+  --editQuestion-b-submit-hov: #3D9AFF;
+  --editQuestion-b-submit-act: #56A8FF;
+  --editQuestion-b-delete-txt: #fff;
+  --editQuestion-b-delete-bg:  #f85a65;
+  --editQuestion-b-delete-hov: #F97A83;
+  --editQuestion-b-delete-act: #FA8991;
 }
   
 .editQuestion-modal {
@@ -28,11 +40,80 @@
   flex-direction: column; /* Дочерние элементы располагаются в столбце */
 }
 
-
-
-.close-editQuestion-button {
-  float: right;
+.editQuestion-button-close {
+  position: absolute;
+  top: -15px; /* Сдвигаем кнопку вверх на половину ее высоты */
+  right: -15px; /* Сдвигаем кнопку вправо на половину ее ширины */
+  width: 40px;
+  height: 40px;
+  
   font-size: 24px;
   font-weight: bold;
+  text-decoration: none;  /* Убираем подчеркивание текста */
+  color:  var(--editQuestion-b-close-txt);
+  text-align: center; /* Выравниваем текст по центру */
+  line-height: 38px; /* Выравниваем по вертикали */
+  
+  background-color: var(--editQuestion-b-close-bg);
+  border-radius: 50%;
   cursor: pointer;
+}
+
+.editQuestion-button-close:hover {
+  background-color: var(--editQuestion-b-close-hov);
+}
+
+.editQuestion-button-close:active {
+  background-color: var(--editQuestion-b-close-act);
+}
+
+.editQuestion-button-submit {
+  position: absolute;
+  bottom: 20px; /* Выравниваем относительно нижней границы */
+  left: 50%; /* Размещаем слева на 50% относительно родительского блока */
+  transform: translateX(-50%); /* Сдвигаем кнопку на 50% своей собственной ширины влево */
+  width: 180px;
+  
+  padding: 10px 20px; /* Примерные значения для визуального выделения кнопки */
+  background-color: var(--editQuestion-b-submit-bg); /* Цвет фона кнопки */
+  color: var(--editQuestion-b-submit-txt); /* Цвет текста кнопки */
+  border: none; /* Убираем границу */
+  border-radius: 20px; /* Скругляем углы */
+  text-decoration: none; /* Убираем подчеркивание */
+  display: flex; /* Используем flexbox для централизации содержимого */
+  justify-content: center; /* Горизонтальное выравнивание содержимого по центру */
+  align-items: center; /* Вертикальное выравнивание содержимого по центру */
+}
+
+editQuestion-button-submit:hover {
+  background-color: var(--editQuestion-b-submit-hov);
+}
+
+.editQuestion-button-submit:active {
+  background-color: var(--editQuestion-b-submit-act);
+}
+
+.editQuestion-button-delete {
+  position: absolute;
+  bottom: 20px; /* Выравниваем относительно нижней границы */
+  left: 82%; /* Размещаем слева на 50% относительно родительского блока */
+  transform: translateX(-50%); /* Сдвигаем кнопку на 50% своей собственной ширины влево */
+  width: 180px;
+  padding: 10px 20px; /* Примерные значения для визуального выделения кнопки */
+  background-color: var(--editQuestion-b-delete-bg); /* Цвет фона кнопки */
+  color: var(--editQuestion-b-delete-txt); /* Цвет текста кнопки */
+  border: none; /* Убираем границу */
+  border-radius: 20px; /* Скругляем углы */
+  text-decoration: none; /* Убираем подчеркивание */
+  display: flex; /* Используем flexbox для централизации содержимого */
+  justify-content: center; /* Горизонтальное выравнивание содержимого по центру */
+  align-items: center; /* Вертикальное выравнивание содержимого по центру */
+}
+
+.editQuestion-button-delete:hover {
+  background-color: var(--editQuestion-b-delete-hov);
+}
+
+.editQuestion-button-delete:active {
+  background-color: var(--editQuestion-b-delete-act);
 }
