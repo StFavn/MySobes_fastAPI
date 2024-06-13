@@ -12,9 +12,13 @@ export default function QuestionModal({ question, closeQuestionModal }) {
   return (
     <div className="questionInfo-modal" onClick={handleOverlayClick}>
       <div className="questionInfo-content">
-        <a  href="#" className="close-questionInfo-button" onClick={closeQuestionModal}>&times;</a>
-        <p>Вопрос: {question.question}</p>
-        <p>Ответ: {question.answer}</p>
+        <a  href="#" className="questionInfo-button-close" onClick={closeQuestionModal}>&times;</a>
+        <div className="questionInfo-question">
+          <span>{question.question}</span>
+        </div>
+        <div className="questionInfo-answer">
+          <span>{question.answer}</span>
+        </div>
       </div>
     </div>
   )

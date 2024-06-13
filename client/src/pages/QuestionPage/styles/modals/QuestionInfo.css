@@ -1,10 +1,22 @@
+:root {
+  --questionInfo-modal-bg:        rgba(0, 0, 0, 0.5);
+  --questionInfo-answer-bg:       #E9E9E9;
+  --questionInfo-content-bg:      #ffffff;
+  --questionInfo-question-border: #cccccc;
+  --questionInfo-question-bg:     #ffffff;
+  --questionInfo-b-close-txt:     #ffffff;
+  --questionInfo-b-close-bg:      #2C2C32;
+  --questionInfo-b-close-hov:     #3c3c3c; 
+  --questionInfo-b-close-act:     #f85a65;
+}
+
 .questionInfo-modal {
   position: fixed; /* Фиксированное позиционирование относительно окна просмотра */
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный черный фон */
+  background-color: var(--questionInfo-modal-bg); /* Полупрозрачный черный фон */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,14 +24,55 @@
 }
 
 .questionInfo-content {
-  background-color: white;
-  padding: 20px;
+  background-color: var(--questionInfo-content-bg);
+  padding: 5px;
   border-radius: 8px;
+  position: relative; /* Добавлено для абсолютного позиционирования кнопки */
 }
 
-.close-questionInfo-button {
-  float: right;
+.questionInfo-question {
+  border-radius: 8px 8px 0 0;
+  max-width: 75vw; /* Установите желаемую ширину */
+  padding: 10px; /* Добавьте отступы вокруг текста для лучшей читаемости */
+  border: 1px solid var(--questionInfo-question-border); /* Добавьте границу вокруг поля */
+  background-color: var(--questionInfo-question-bg); /* Задайте цвет фона поля */
+  margin: 20px 10px 0px;
+}
+
+.questionInfo-answer {
+  border-radius: 0 0 8px 8px;
+  max-width: 75vw; /* Установите желаемую ширину */
+  max-height: 75vh;
+  padding: 10px; /* Добавьте отступы вокруг текста для лучшей читаемости */
+  border: 1px solid var(--questionInfo-answer-bg); /* Добавьте границу вокруг поля */
+  background-color: var(--questionInfo-answer-bg); /* Задайте цвет фона поля */
+  margin: 0px 10px 10px;
+  overflow-y: auto;
+}
+
+.questionInfo-button-close {
+  position: absolute;
+  top: -15px; /* Сдвигаем кнопку вверх на половину ее высоты */
+  right: -15px; /* Сдвигаем кнопку вправо на половину ее ширины */
+  width: 40px;
+  height: 40px;
+  
   font-size: 24px;
   font-weight: bold;
+  text-decoration: none;  /* Убираем подчеркивание текста */
+  color:  var(--questionInfo-b-close-txt);
+  text-align: center; /* Выравниваем текст по центру */
+  line-height: 38px; /* Выравниваем по вертикали */
+  
+  background-color: var(--questionInfo-b-close-bg);
+  border-radius: 50%;
   cursor: pointer;
+}
+
+.questionInfo-button-close:hover {
+  background-color: var(--questionInfo-b-close-hov);
+}
+
+.questionInfo-button-close:active {
+  background-color: var(--questionInfo-b-close-act);
 }
