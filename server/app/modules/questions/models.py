@@ -11,7 +11,7 @@ class QuestionModel(Base):
     answer:   Mapped[str] = mapped_column(String(length=5000))
     topic_id: Mapped[int] = mapped_column(ForeignKey("topics.id"))
 
-    paren_topic: Mapped["TopicModel"] = relationship( # type: ignore
+    parent_topic: Mapped["TopicModel"] = relationship( # type: ignore
         back_populates="questions"
     ) 
 

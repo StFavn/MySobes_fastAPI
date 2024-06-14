@@ -16,7 +16,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(questions_router)  #/questions
 app.include_router(topics_router)     #/topics
+app.include_router(questions_router)  #/questions
 
 # http://localhost:5173/

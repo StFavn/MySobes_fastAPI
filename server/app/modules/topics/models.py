@@ -11,8 +11,11 @@ class TopicModel(Base):
     name:      Mapped[str] = mapped_column(String(length=500))
     parent_id: Mapped[Optional[int]] = mapped_column(ForeignKey("topics.id"))
 
+    parent:    Mapped[Optional["TopicModel"]] = relationship(
+        back_populates="children", remote_side=[id]
+    )
     children:  Mapped[list["TopicModel"]] = relationship(
-        backref="parent", remote_side=[id], cascade='all, delete-orphan'
+        back_populates="parent", cascade='all, delete-orphan'
     )
     questions: Mapped[list["QuestionModel"]] = relationship(  # type: ignore
         back_populates="parent_topic", cascade='all, delete-orphan'
