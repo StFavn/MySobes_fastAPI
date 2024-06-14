@@ -1,7 +1,10 @@
+import '../styles/Message.css'
+
 export default function Message({ message }) {
   return (
     <div className="message">
-      <p>{ message }  hello world</p>
+      <span>{message}</span>
+      <a href="#" class="close-button">&times;</a>
     </div>
-  )
+  );
 }

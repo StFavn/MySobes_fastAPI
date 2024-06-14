@@ -121,7 +121,7 @@ export default function TopicsSection() {
         closeAddItemModal={closeAddItemModal}
         fetchTopics={fetchTopics}
       />}
-      { Message('тестовое сообщени') }
+      <Message message="тестовое сообщени" /> 
     </>
   )
 }
