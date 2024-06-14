@@ -1,4 +1,10 @@
 **/venv
-__pycache__
+
+# Profile config
 *.db
-.gitignore
+.env
+
+# system files
+__pycache__
+**/DC_store
+

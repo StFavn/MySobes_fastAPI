@@ -1,7 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.routes import questions_router, topics_router
+from app.modules.questions.router import router as questions_router
+from app.modules.topics.router import router as topics_router
 
 app = FastAPI(
     title="Questions API",
