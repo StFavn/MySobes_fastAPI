@@ -3,7 +3,7 @@ import TopicSelectorForModal from '../components/TopicSelectorForModal';
 
 import '../styles/modals/EditTopic.css'
 
-export default function EditTopic({ topic, topics, closeEditTopicModal, fetchTopics }) {
+export default function EditTopicModal({ topic, topics, closeEditTopicModal, fetchTopics }) {
   const [topicName, setTopicName] = useState(topic.name);
   const [parentTopic, setParentTopic] = useState(topic.parent_id);
 
@@ -14,7 +14,7 @@ export default function EditTopic({ topic, topics, closeEditTopicModal, fetchTop
     if (topicName && parentTopic) {
       try {
         const response = await fetch(`http://127.0.0.1:8000/topics/${topic.id}`, {
-          method: 'PUT',
+          method: 'PATCH',
           headers: {
             'Content-Type': 'application/json'
           },
@@ -74,13 +74,13 @@ export default function EditTopic({ topic, topics, closeEditTopicModal, fetchTop
 
   function submitButton() {
     return (
-      <a href="#" className="submit-editTopic-button" onClick={editTopic}>Сохранить</a>
+      <a href="#" className="editTopic-button-submit" onClick={editTopic}>Сохранить</a>
     )
   }
 
   function deleteButton() {
     return (
-      <a href="#" className="delete-editTopic-button" onClick={deleteTopic}>Удалить</a>
+      <a href="#" className="editTopic-button-delete" onClick={deleteTopic}>Удалить</a>
     )
   }
 
@@ -92,7 +92,7 @@ export default function EditTopic({ topic, topics, closeEditTopicModal, fetchTop
 
   function closeEditTopicButton() {
     return (
-      <a href="#" className="close-editTopic-button" onClick={close}>&times;</a>
+      <a href="#" className="editTopic-button-close" onClick={close}>&times;</a>
     )
   }
 
@@ -105,7 +105,7 @@ export default function EditTopic({ topic, topics, closeEditTopicModal, fetchTop
           nullSelect={true}
           parentTopic={parentTopic} 
           setParentTopic={setParentTopic} 
-          className="select-parent-for-topic"
+          className="select-parent-for-question"
         />
         {textAreaTopicName()}
         {submitButton()}
