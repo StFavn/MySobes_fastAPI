@@ -19,6 +19,8 @@ class TopicDAO(BaseDAO):
     @classmethod
     async def get_topic_tree(cls, id: int):
         topic = await cls.get_object(id=id)
+        if not topic:
+            return None
 
         questions = await QuestionDAO.get_all_objects(topic_id=id)
         if not questions:
