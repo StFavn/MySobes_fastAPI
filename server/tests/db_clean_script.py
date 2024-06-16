@@ -4,6 +4,8 @@ import asyncio
 
 from app.modules.topics.models import TopicModel
 from app.modules.questions.models import QuestionModel
+from app.modules.sobeses.models import SobesModel
+from app.modules.sobes_questions.models import SobesQuestionModel
 
 TEST_DB_URL = 'sqlite+aiosqlite:///./questionsList_test.db'
 engine = create_async_engine(TEST_DB_URL)

@@ -10,11 +10,14 @@ class SobesQuestionModel(Base):
 
     id:          Mapped[int] = mapped_column(primary_key=True)
     sobes_id:    Mapped[int] = mapped_column(ForeignKey("sobeses.id"))
-    question_id: Mapped[Optional[int]] = mapped_column(ForeignKey("questions.id"))
     question:    Mapped[str]
     answer:      Mapped[str]
     user_answer: Mapped[Optional[str]]
     score:       Mapped[Optional[int]]
+
+    question_id: Mapped[Optional[int]] = mapped_column(
+        ForeignKey("questions.id", ondelete="SET NULL")
+    )
 
     sobes: Mapped["SobesModel"] = relationship( # type: ignore
         back_populates="questions"

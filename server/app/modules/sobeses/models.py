@@ -10,10 +10,12 @@ from app.database.base_model import Base
 class SobesModel(Base):
     __tablename__ = "sobeses"
 
-    id:            Mapped[int] = mapped_column(primary_key=True)
-    duration:      Mapped[Optional[int]]
-    status:        Mapped[str] = mapped_column(default="created")
-    average_score: Mapped[Optional[int]]
+    id:              Mapped[int] = mapped_column(primary_key=True)
+    duration:        Mapped[Optional[int]]
+    status:          Mapped[str] = mapped_column(default="created")
+    average_score:   Mapped[Optional[float]]
+    count_questions: Mapped[Optional[int]]
+
 
     create_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), default=func.now()
