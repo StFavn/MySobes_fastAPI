@@ -1,0 +1,119 @@
+:root {
+    --editTopic-content-bg:   #ffffff;
+    --editTopic-b-close-txt:  #ffffff;
+    --editTopic-b-close-bg:   #2C2C32;
+    --editTopic-b-close-hov:  #3c3c3c; 
+    --editTopic-b-close-act:  #f85a65;
+    --editTopic-b-submit-txt: #fff;
+    --editTopic-b-submit-bg:  #007bff;
+    --editTopic-b-submit-hov: #3D9AFF;
+    --editTopic-b-submit-act: #56A8FF;
+    --editTopic-b-delete-txt: #fff;
+    --editTopic-b-delete-bg:  #f85a65;
+    --editTopic-b-delete-hov: #F97A83;
+    --editTopic-b-delete-act: #FA8991;
+  }
+    
+  .editTopic-modal {
+    position: fixed; /* Фиксированное позиционирование относительно окна просмотра */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный черный фон */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Устанавливаем высокий уровень z-index, чтобы окно было поверх других элементов */
+  }
+  
+  .editTopic-content {
+  
+    position: relative;
+    background-color: var(--editTopic-content-bg);
+    padding: 20px;
+    border-radius: 8px;
+    width: 600px; /* Фиксированная ширина */
+    height: 500px; /* Фиксированная высота */
+    
+    display: flex; /* Используем flexbox */
+    flex-direction: column; /* Дочерние элементы располагаются в столбце */
+  }
+  
+  .editTopic-button-close {
+    position: absolute;
+    top: -15px; /* Сдвигаем кнопку вверх на половину ее высоты */
+    right: -15px; /* Сдвигаем кнопку вправо на половину ее ширины */
+    width: 40px;
+    height: 40px;
+    
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;  /* Убираем подчеркивание текста */
+    color:  var(--editTopic-b-close-txt);
+    text-align: center; /* Выравниваем текст по центру */
+    line-height: 38px; /* Выравниваем по вертикали */
+    
+    background-color: var(--editTopic-b-close-bg);
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .editTopic-button-close:hover {
+    background-color: var(--editTopic-b-close-hov);
+  }
+  
+  .editTopic-button-close:active {
+    background-color: var(--editTopic-b-close-act);
+  }
+  
+  .editTopic-button-submit {
+    position: absolute;
+    bottom: 20px; /* Выравниваем относительно нижней границы */
+    left: 50%; /* Размещаем слева на 50% относительно родительского блока */
+    transform: translateX(-50%); /* Сдвигаем кнопку на 50% своей собственной ширины влево */
+    width: 180px;
+    
+    padding: 10px 20px; /* Примерные значения для визуального выделения кнопки */
+    background-color: var(--editTopic-b-submit-bg); /* Цвет фона кнопки */
+    color: var(--editTopic-b-submit-txt); /* Цвет текста кнопки */
+    border: none; /* Убираем границу */
+    border-radius: 20px; /* Скругляем углы */
+    text-decoration: none; /* Убираем подчеркивание */
+    display: flex; /* Используем flexbox для централизации содержимого */
+    justify-content: center; /* Горизонтальное выравнивание содержимого по центру */
+    align-items: center; /* Вертикальное выравнивание содержимого по центру */
+  }
+  
+  editTopic-button-submit:hover {
+    background-color: var(--editTopic-b-submit-hov);
+  }
+  
+  .editTopic-button-submit:active {
+    background-color: var(--editTopic-b-submit-act);
+  }
+  
+  .editTopic-button-delete {
+    position: absolute;
+    bottom: 20px; /* Выравниваем относительно нижней границы */
+    left: 82%; /* Размещаем слева на 50% относительно родительского блока */
+    transform: translateX(-50%); /* Сдвигаем кнопку на 50% своей собственной ширины влево */
+    width: 180px;
+    padding: 10px 20px; /* Примерные значения для визуального выделения кнопки */
+    background-color: var(--editTopic-b-delete-bg); /* Цвет фона кнопки */
+    color: var(--editTopic-b-delete-txt); /* Цвет текста кнопки */
+    border: none; /* Убираем границу */
+    border-radius: 20px; /* Скругляем углы */
+    text-decoration: none; /* Убираем подчеркивание */
+    display: flex; /* Используем flexbox для централизации содержимого */
+    justify-content: center; /* Горизонтальное выравнивание содержимого по центру */
+    align-items: center; /* Вертикальное выравнивание содержимого по центру */
+  }
+  
+  .editTopic-button-delete:hover {
+    background-color: var(--editTopic-b-delete-hov);
+  }
+  
+  .editTopic-button-delete:active {
+    background-color: var(--editTopic-b-delete-act);
+  }
