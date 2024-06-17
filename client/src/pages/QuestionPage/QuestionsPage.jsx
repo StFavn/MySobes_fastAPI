@@ -78,7 +78,7 @@ export default function QuestionPage() {
   // Нужно добавить сохранение состояния открытости details
   function TopicTree({ topic }) {
     return (
-      <>
+      <span>
         <details open>
           <summary>{topic.name}</summary>
           <ul>
@@ -99,7 +99,7 @@ export default function QuestionPage() {
           </ul>
         </details>
         <a href="#" className="edit-topic-button" onClick={() => openEditTopicModal(topic)}>1</a>
-      </>
+      </span>
     )
   }
 

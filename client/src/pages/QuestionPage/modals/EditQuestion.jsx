@@ -16,7 +16,7 @@ export default function EditQuestionModal({ question, topics, closeEditQuestionM
     if (questionName && answerName && parentTopic) {
       try {
         const response = await fetch(`http://127.0.0.1:8000/questions/${question.id}`, {
-          method: 'PUT',
+          method: 'PATCH',
           headers: {
             'Content-Type': 'application/json'
           },
