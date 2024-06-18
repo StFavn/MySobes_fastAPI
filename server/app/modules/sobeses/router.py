@@ -17,7 +17,7 @@ router = APIRouter(
 
 
 @router.post('', response_model=SSobesRead)
-async def create_sobes(data: SSobesCreate): # user: UserModel = Depends(current_superuser
+async def create_sobes(data: SSobesCreate):
     """Добавление нового собеса."""
     
     new_sobes = await SobesDAO.create_sobes(**data.model_dump())
@@ -28,14 +28,26 @@ async def create_sobes(data: SSobesCreate): # user: UserModel = Depends(current_
     return new_sobes
 
 
-# @router.get('/{sobes_id}', response_model=SSobesRead)
-# async def get_sobes(sobes_id: int):
-#     """Возвращение темы по id."""
+@router.post('/{sobes_id}/recalculate_score', response_model=SSobesRead)
+async def recalculate_sobes(sobes_id: int): 
+    """Перерасчет average_score и duration для собеса."""
+    
+    recalculate_sobes = await SobesDAO.recalculate_score(sobes_id=sobes_id)
+    if not recalculate_sobes:
+        raise DatabaseErrorException(
+            detail='Не удалось добавить запись в базу данных.'
+        )
+    return recalculate_sobes
 
-#     sobes = await SobesDAO.get_sobes(id=sobes_id)
-#     if not sobes:
-#         raise NotFoundException
-#     return sobes
+
+@router.get('/{sobes_id}', response_model=SSobesRead)
+async def get_sobes(sobes_id: int):
+    """Возвращение собеса по id."""
+
+    sobes = await SobesDAO.get_sobes_by_id(id=sobes_id)
+    if not sobes:
+        raise NotFoundException
+    return sobes
 
 
 @router.get('', response_model=List[SSobesRead])
@@ -55,12 +67,16 @@ async def update_sobes( # user: UserModel = Depends(current_superuser
 ):
     """Обновление данных вопроса."""
 
-    sobes = await SobesDAO.update_object(
+    update_sobes = await SobesDAO.update_object(
         update_data=update_data, id=sobes_id
     )
 
-    if not sobes:
+    if not update_sobes:
         raise DatabaseErrorException(detail='Не удалось обновить данные.')
+    
+    sobes = await SobesDAO.get_sobes_by_id(id=sobes_id)
+    if not sobes:
+        raise NotFoundException
     return sobes
 
 

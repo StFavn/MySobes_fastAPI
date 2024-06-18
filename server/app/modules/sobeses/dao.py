@@ -38,7 +38,6 @@ class SobesDAO(BaseDAO):
         if len(questions) > count_questions:
             questions = questions[:count_questions]
 
-        # TODO: добавить try-except
         sobes = await cls.add_object(status="created", count_questions=len(questions))
         if not sobes:
             return None
@@ -115,13 +114,21 @@ class SobesDAO(BaseDAO):
 
         scored_questions_count = 0
         score_sum = 0
+        duration_sum = 0
         for question in sobes_questions:
             if question.score is not None:
                 scored_questions_count += 1
                 score_sum += question.score
+                duration_sum += question.duration
+
         if scored_questions_count > 0:
-            sobes.average_score = round(score_sum / scored_questions_count, 2)
             async with async_session_maker() as session:
+                query = select(SobesModel).filter_by(id=sobes_id)
+                sobes = await session.execute(query)
+                sobes = sobes.scalars().one_or_none()
+                sobes.average_score = round(score_sum / scored_questions_count, 2)
+                sobes.duration = duration_sum
+    
                 session.add(sobes)
                 await session.commit()
         

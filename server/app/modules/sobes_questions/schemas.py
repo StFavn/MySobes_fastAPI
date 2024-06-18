@@ -8,7 +8,11 @@ class SSobesQuestionRead(BaseModel):
     question_id: int | None = None
     question:    str
     answer:      str
+    
     user_answer: str | None = None
+
+    description: str | None = None
+    duration:    int | None = None
     score:       int | None = None
 
 
@@ -16,4 +20,7 @@ class SSobesQuestionUpdate(BaseModel):
     """Схема обновления вопроса."""
 
     user_answer: str | None = None
+
     score:       int | None = None
+    duration:    int | None = None
+    description: str | None = None

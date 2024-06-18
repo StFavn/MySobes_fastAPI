@@ -25,4 +25,3 @@ class SSobesUpdate(BaseModel):
     """Схема обновления собеса."""
 
     status:   str | None = None
-    duration: int | None = None

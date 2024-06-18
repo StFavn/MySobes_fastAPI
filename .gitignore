@@ -6,6 +6,7 @@
 
 # system files
 __pycache__
+**_cache**
 **/DC_store
 .vscode
 

@@ -12,8 +12,11 @@ class SobesQuestionModel(Base):
     sobes_id:    Mapped[int] = mapped_column(ForeignKey("sobeses.id"))
     question:    Mapped[str]
     answer:      Mapped[str]
+
     user_answer: Mapped[Optional[str]]
+    description: Mapped[Optional[str]]
     score:       Mapped[Optional[int]]
+    duration:    Mapped[Optional[int]]
 
     question_id: Mapped[Optional[int]] = mapped_column(
         ForeignKey("questions.id", ondelete="SET NULL")
