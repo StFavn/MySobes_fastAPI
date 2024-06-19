@@ -1,105 +1,137 @@
-# # from app.dao.base import BaseDAO
+# from typing import List
+import random
+from typing import List
+from fastapi.encoders import jsonable_encoder
+from sqlalchemy import select
+from sqlalchemy.orm import selectinload
+from sqlalchemy.exc import SQLAlchemyError
 
-# # from .models import TopicModel
+from app.dao.base import BaseDAO
+from app.database.connection import async_session_maker
+from app.logger import logger
 
-# # class TopicDAO(BaseDAO):
-# #     model = TopicModel
+from app.modules.sobes_questions.dao import SobesQuestionDAO
+from app.modules.questions.dao import QuestionDAO
 
-# from sqlalchemy import select
-# from fastapi import HTTPException
-# from datetime import datetime, timezone
-# import random 
+from .models import SobesModel
+from .schemas import SSobesRead, SSobesUpdate
 
-# from app.modules.models import SobesModel, SobesQuestionModel
-# from app.modules.schemas import SSobes, SSobesQuestion, SSobesFilters
-# from app.connection.question_conn import QuestionConnection
+class SobesDAO(BaseDAO):
+    model = SobesModel
 
-# from app.database.db_init import get_current_session
-# new_session = get_current_session()
+    @classmethod
+    async def create_sobes(
+        cls, topic_id_list, count_questions
+    ) -> SSobesRead:
+        """Добавление нового собеса."""
+        questions = []
+        for topic_id in topic_id_list:
+            questions_by_topic = await QuestionDAO.get_all_objects(topic_id=topic_id)
+            if not questions_by_topic:
+                questions_by_topic = []
+            questions.extend(questions_by_topic)
 
-# class SobesConnection:
-#     # --- CREATE ---
-#     @classmethod
-#     async def create_sobes(cls, sobes_filters: SSobesFilters) -> SSobes:
-#         async with new_session() as session:
-#             # Создание нового контейнера sobes
-#             sobes = SobesModel(
-#                 name="New Sobes",
-#                 create_at=datetime.now(timezone.utc),
-#                 status=False
-#             )
-#             session.add(sobes)
-#             await session.flush()  # Сохраняем чтобы получить ID
-#             await session.commit()
-#             # Создание списка вопросов для нового контейнера sobes
-#             sobes_questions = await cls.create_question_list(sobes.id, sobes_filters)
+        if not questions:
+            return None
+        
+        random.shuffle(questions)
+        if len(questions) > count_questions:
+            questions = questions[:count_questions]
 
-#             # Создание Pydantic объекта SSobes
-#             sobes_formated = SSobes(
-#                 id=sobes.id,
-#                 name=sobes.name,
-#                 create_at=sobes.create_at,
-#                 end_at=sobes.end_at,
-#                 duration_seconds=sobes.duration_seconds,
-#                 status=sobes.status,
-#                 questions=sobes_questions,
-#                 questions_count=len(sobes_questions)
-#             )
-#             return sobes_formated
+        sobes = await cls.add_object(status="created", count_questions=len(questions))
+        if not sobes:
+            return None
+        
+        sobes_id = sobes.id
 
-#     @classmethod
-#     async def create_question_list(cls, sobes_id: int, sobes_filters: SSobesFilters) -> list[SSobesQuestion]:
-#         async with new_session() as session:
-#             all_questions_orm = await QuestionConnection.get_all_model(session)
-#             random.shuffle(all_questions_orm)
+        # TODO: добавить try-except
+        for question in questions:
+            sobes_question = await SobesQuestionDAO.add_object(
+                sobes_id=sobes_id, 
+                question_id=question.id,
+                question=question.question,
+                answer=question.answer
+            )
 
-#             # Проверка на достаточное количество вопросов
-#             if len(all_questions_orm) < sobes_filters.questions_count:
-#                 selected_questions = all_questions_orm
-#             else:
-#                 selected_questions = all_questions_orm[:sobes_filters.questions_count]
-            
-#             sobes_questions = []
-#             for question in selected_questions:
-#                 sobes_question = SobesQuestionModel(
-#                     sobes_id=sobes_id,
-#                     question_id=question.id,
-#                     question=question.question,
-#                     answer=question.answer,
-#                     user_answer=None,
-#                     score=None
-#                 )
-#                 session.add(sobes_question)
-#                 await session.flush()  # Для получения сгенерированного id
-#                 sobes_questions.append(SSobesQuestion.model_validate(sobes_question))
+        sobes = await cls.get_sobes_by_id(id=sobes_id)
+        if not sobes:
+            return None
+        return sobes
+    
 
-#             await session.commit()
-#             return sobes_questions
+    @classmethod
+    async def get_sobes_by_id(cls, id: int) -> SSobesRead:
+        """Возвращение одного sobes-контейнера по id."""
+        try:
+            async with async_session_maker() as session:
+                query = (
+                    select(SobesModel)
+                    .filter_by(id=id)
+                    .options(selectinload(SobesModel.questions))
+                )
+                result = await session.execute(query)
+        except (SQLAlchemyError, Exception) as error:
+            message = f'An error has occurred: {error}'
+            logger.error(
+                message,
+                extra={'Database table': cls.model.__tablename__},
+                exc_info=True
+            )
+            return None
+        return jsonable_encoder(result.scalars().one_or_none())
 
-#     # -- GET --
-#     @classmethod
-#     async def get_sobes_by_id(cls, sobes_id: int) -> SSobes:
-#         async with new_session() as session:
-#             # Извлечение контейнера sobes по его идентификатору
-#             sobes_query = select(SobesModel).where(SobesModel.id == sobes_id)
-#             result_sobes_query = await session.execute(sobes_query)
-#             sobes = result_sobes_query.scalar()
-#             if sobes is None:
-#                 raise HTTPException(status_code=404, detail="Sobes not found")
-            
-#             question_query = select(SobesQuestionModel).where(SobesQuestionModel.sobes_id == sobes_id)
-#             result_question_query = await session.execute(question_query)
-#             questions = result_question_query.scalars().all()
-#             questions_schema = [SSobesQuestion.model_validate(question) for question in questions]
 
-#             sobes_schema = SSobes(
-#                 id=sobes.id,
-#                 name=sobes.name,
-#                 create_at=sobes.create_at,
-#                 end_at=sobes.end_at,
-#                 duration_seconds=sobes.duration_seconds,
-#                 status=sobes.status,
-#                 questions=questions_schema,
-#                 questions_count=len(questions)
-#             )
-#             return sobes_schema
+    @classmethod
+    async def get_all_sobeses(cls, **kwargs) -> List[SSobesRead]:
+        """Возвращение всех sobes-контейнеров."""
+
+        try:
+            async with async_session_maker() as session:
+                query = (
+                    select(SobesModel)
+                    .filter_by(**kwargs)
+                    .options(selectinload(SobesModel.questions))
+                    .order_by(SobesModel.create_at.desc())
+                )
+                result_execute = await session.execute(query)
+        except (SQLAlchemyError, Exception) as error:
+            message = f'An error has occurred: {error}'
+            logger.error(
+                message,
+                extra={'Database table': cls.model.__tablename__},
+                exc_info=True
+            )
+            return None
+        sobeses = result_execute.scalars().all()
+        return jsonable_encoder(sobeses)
+    
+
+    @classmethod
+    async def recalculate_score(cls, sobes_id: int) -> SSobesRead:
+        """Перерасчет average_score для собеса."""
+
+        sobes_questions = await SobesQuestionDAO.get_all_objects(sobes_id=sobes_id)
+
+        scored_questions_count = 0
+        score_sum = 0
+        duration_sum = 0
+        for question in sobes_questions:
+            if question.score is not None:
+                scored_questions_count += 1
+                score_sum += question.score
+                duration_sum += question.duration
+
+        if scored_questions_count > 0:
+            async with async_session_maker() as session:
+                query = select(SobesModel).filter_by(id=sobes_id)
+                sobes = await session.execute(query)
+                sobes = sobes.scalars().one_or_none()
+                sobes.average_score = round(score_sum / scored_questions_count, 2)
+                sobes.duration = duration_sum
+    
+                session.add(sobes)
+                await session.commit()
+        
+        sobes = await cls.get_sobes_by_id(id=sobes_id)
+        return sobes
+        

@@ -1,30 +1,27 @@
-# from pydantic import BaseModel
-# from app.modules.questions.schemas import SQuestionRead
+from datetime import datetime
+from pydantic import BaseModel
+from app.modules.sobes_questions.schemas import SSobesQuestionRead
 
-# class STopicRead(BaseModel):
-#     """Схема чтения вопросоа."""
+class SSobesRead(BaseModel):
+    """Схема чтения собеса."""
 
-#     id:        int
-#     name:      str
-#     parent_id: int | None = None
+    id:              int
+    create_at:       datetime
+    status:          str
+    count_questions: int
+    average_score:   float | None = None
+    duration:        int | None = None
+    questions:       list[SSobesQuestionRead]
 
 
-# class STopicTreeRead(BaseModel):
-#     """Схема чтения вопросоа."""
 
-#     id:              int
-#     name:            str
-#     children_topics: list["STopicTreeRead"]
-#     questions:       list["SQuestionRead"]
-# # 
-# class STopicCreate(BaseModel):
-#     """Схема создания вопроса."""
+class SSobesCreate(BaseModel):
+    """Схема создания собеса."""
 
-#     name:      str
-#     parent_id: int | None = None
+    topic_id_list:   list[int]
+    count_questions: int
 
-# class STopicUpdate(BaseModel):
-#     """Схема обновления вопроса."""
+class SSobesUpdate(BaseModel):
+    """Схема обновления собеса."""
 
-#     name:      str | None = None
-#     parent_id: int | None = None
+    status:   str | None = None

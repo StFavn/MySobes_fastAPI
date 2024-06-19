@@ -7,6 +7,8 @@ from alembic import context
 from app.database.base_model import metadata
 from app.modules.questions.models import QuestionModel
 from app.modules.topics.models import TopicModel
+from app.modules.sobes_questions.models import SobesQuestionModel
+from app.modules.sobeses.models import SobesModel
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
