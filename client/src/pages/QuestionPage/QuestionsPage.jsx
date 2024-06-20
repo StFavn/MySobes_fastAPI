@@ -5,11 +5,10 @@ import EditTopicModal from './modals/EditTopic'
 import AddItemModal from './modals/AddItem/AddItem'
 import Message from './../../components/Message'
 
-import './styles/TopicTree.css'
+import './styles/QuestionPage.css'
 
 
 export default function QuestionPage() {
-  const [loading, setLoading] = useState(false) // стейт для загрузки данных
   const [topics, setTopics] = useState([]) // стейт для данных одной спекции топика
   const [selectedQuestion, setSelectedQuestion] = useState(null); // стейт для выбранного вопроса
   const [selectedTopic, setSelectedTopic] = useState(null);
@@ -20,11 +19,11 @@ export default function QuestionPage() {
 
   // Функция для загрузки данных
   async function fetchTopics() {
-    setLoading(true)
     const response = await fetch('http://127.0.0.1:8000/topics')
-    const topicsData = await response.json()
-    setTopics(topicsData)
-    setLoading(false)
+    if (response.ok) {
+      const topicsData = await response.json()
+      setTopics(topicsData)
+    }
   }
 
   useEffect(() => {  // функция запускающая загрузку данных
@@ -90,7 +89,7 @@ export default function QuestionPage() {
               <span key={question.id}>
                 <li key={question.id}>
                   <a href="#" className="question" onClick={() => openQuestionModal(question)}>
-                    {question.question}
+                    <pre>{question.question}</pre>
                   </a>
                 </li>
                 <a href="#" className="edit-question-button" onClick={() => openEditQuestionModal(question)}>1</a>
@@ -118,32 +117,31 @@ export default function QuestionPage() {
   }
 
   return (
-    <>
-      { loading && <p>Загрузка...</p> }
-      { !loading && returnTopicList(topics) }
+    <div className="QuestionsPage">
+      { returnTopicList(topics) }
       { addItem() } 
-      {showQuestionModal && <QuestionModal 
+      { showQuestionModal && <QuestionModal 
         question={selectedQuestion} 
         closeQuestionModal={closeQuestionModal} 
-      />}
-      {showEditQuestionModal && <EditQuestionModal 
+      /> }
+      { showEditQuestionModal && <EditQuestionModal 
         question={selectedQuestion} 
         topics={topics} 
         closeEditQuestionModal={closeEditQuestionModal} 
         fetchTopics={fetchTopics}
-      />}
-      {showEditTopicModal && <EditTopicModal 
+      /> }
+      { showEditTopicModal && <EditTopicModal 
         topic={selectedTopic} 
         topics={topics} 
         closeEditTopicModal={closeEditTopicModal} 
         fetchTopics={fetchTopics}
       />}
-      {showAddItemModal && <AddItemModal 
+      { showAddItemModal && <AddItemModal 
         topics={topics}
         closeAddItemModal={closeAddItemModal}
         fetchTopics={fetchTopics}
-      />}
-      { Message('тестовое сообщени') }
-    </>
+      /> }
+      {/* { message && <Message message={message} /> } */}
+    </div>
   )
 }

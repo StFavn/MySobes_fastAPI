@@ -13,6 +13,15 @@
   --addItem-button-active:      #2C2C32;
 }
 
+.QuestionsPage {
+  max-width: 850px;
+  min-height: calc(100vh - 85px - 22px);
+  padding-top: 2rem;
+  padding-bottom: 1.5rem;
+  padding: 1rem;
+  margin: 0 auto;
+}
+
 .tree ul {
   list-style-type: none; /* Убираем стандартные элементы списка */
 }
@@ -32,9 +41,9 @@
   margin-bottom: 5px; /* Отступ снизу для разделения прямоугольников */
   background-color: var(--topic-name-bg); /* Цвет фона для заголовков подтем */
   font-weight: bold; /* Выделение заголовков жирным шрифтом */
-  border-radius: 8px;  /* сглаживание уголков прямоугольника */
+  border-radius: 8px 0 0 8px;  /* сглаживание уголков прямоугольника */
   cursor: pointer; /* Курсор при наведении на заголовок */
-
+  min-height: 40px;
   margin-right: 45px;
 }
 
@@ -51,13 +60,18 @@
   background-color: var(--question-bg); /* Цвет фона для прямоугольников */
   padding: 10px; /* Внутренние отступы для текста */
   margin-bottom: 5px; /* Отступ снизу для разделения прямоугольников */
-  border-radius: 20px; /* сглаживание уголков прямоугольника */
+  border-radius: 0; /* сглаживание уголков прямоугольника */
   cursor: pointer; /* Курсор при наведении на подтему */
   margin-right: 45px;
 }
 
 .tree li:hover {
   background-color: var(--question-hover); /* Изменяем цвет фона при наведении */
+}
+
+.tree pre {
+  white-space: pre-wrap;
+  font-family: 'Roboto', sans-serif;
 }
 
 .question {
@@ -74,9 +88,9 @@
   right: 0px;
   transform: translateY(-50%);
   width: 40px;
-  height: 39px;
+  height: 100%;
   background-color: var(--edit-question-button-bg); /* Цвет круглого элемента */
-  border-radius: 50%;
+  border-radius: 0x;
   cursor: pointer;
   text-align: center; /* Центрирует текст по горизонтали */
   line-height: 40px;
@@ -92,9 +106,9 @@
   right: 0px;
   transform: translateY(-50%);
   width: 40px;
-  height: 39px;
+  height: 40px;
   background-color: var(--edit-topic-button-bg); /* Цвет круглого элемента */
-  border-radius: 8px;
+  border-radius: 0 8px 8px 0;
   cursor: pointer;
   text-align: center; /* Центрирует текст по горизонтали */
   line-height: 40px;

@@ -32,14 +32,6 @@ body {
   overflow: hidden;
 }
 
-main {
-  max-width: 850px;
-  min-height: calc(100vh - 85px - 22px);
-  padding-top: 2rem;
-  padding-bottom: 1.5rem;
-  padding: 1rem;
-  margin: 0 auto;
-}
 
 h1 {
   text-align: center;

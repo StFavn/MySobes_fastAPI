@@ -26,37 +26,35 @@ export default function TopicSelectorForModal({ topics, nullSelect, parentTopic,
         />
         <label htmlFor={topic.id}>{topic.name}</label>
   
-        {topic.children.map((child) => (
+        { topic.children.map((child) => (
           <ParentMenuTree key={child.id} topic={child} />
         ))}
       </>
     )
   }
 
-  const renderNullOption = () => {
-    if (nullSelect) {
-      return (
-        <>
-          <input 
-            type="radio" 
-            id="null" 
-            name="parent" 
-            onChange={() => handleInputChange(null)} 
-            checked={parentTopic === null} 
-          /> 
-          <label htmlFor="null">...</label>
-        </>
-      );
-    }
-    return null;
-  };
+  function renderNullOption() {
+    return (
+      <>
+        <input 
+          type="radio" 
+          id="null" 
+          name="parent" 
+          onChange={() => handleInputChange(null)} 
+          checked={parentTopic === null} 
+        /> 
+        <label htmlFor="null">...</label>
+      </>
+    );
+  }
+
 
   return (
     <>
       <p>Выберите родительскую тему:</p>
       <div className={className} ref={parentMenuRef}>
-        {renderNullOption()}
-        {topics.map((topic) => (
+        { nullSelect && renderNullOption() }
+        { topics.map((topic) => (
           <ParentMenuTree key={topic.id} topic={topic} />
         ))}
       </div>

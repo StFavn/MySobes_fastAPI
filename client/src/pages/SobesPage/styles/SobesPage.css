@@ -1,0 +1,103 @@
+:root {
+    --sobes-section-bg:            #2C2C32;
+    --sobesSection-button-add-txt: #ffffff;
+    --sobesSection-button-add-bg:  #56bbff;
+    --sobesSection-button-add-h:   #8ed2ff;
+    --sobesSection-button-add-a:   #2C2C32;
+}
+
+.SobesPage {
+    max-width: 1000px;
+    min-height: calc(100vh - 85px - 22px);
+    padding-top: 2rem;
+    padding-bottom: 1.5rem;
+    padding: 1rem;
+    margin: 0 auto;
+}
+
+.sobes-section {
+    background-color: var(--sobes-section-bg);
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  
+    height: 79vh; 
+    overflow-y: auto; 
+}
+
+.sobesSection-button-add {
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    color: var(--sobesSection-button-add-txt);
+    background-color: var(--sobesSection-button-add-bg);
+    padding: 0px;
+    display: block;
+    border-radius: 20px;
+    text-align: center; /* Центрирует текст по горизонтали */
+    line-height: 30px;
+    text-decoration: none;  /* Убираем подчеркивание текста */
+}
+
+.sobesSection-button-add:hover {
+    background-color: var(--sobesSection-button-add-h); /* Изменяем цвет фона при наведении */
+  }
+  
+.sobesSection-button-add:active {
+    background-color: var(--sobesSection-button-add-a);
+}
+
+
+
+.sobesTable-title {
+    display: flex; /* Используем Flexbox */
+    justify-content: space-between; /* Равномерно распределяем элементы */
+    align-items: center; /* Выравниваем элементы по центру вертикально */
+    padding: 10px; /* Внутренние отступы для заголовков */
+    color: #ffffff;
+}
+
+.sobesTable-title span {
+    text-align: center; /* Центрируем текст */
+    font-weight: bold; /* Выделяем текст */
+}
+
+.sobesTable-number {
+    width: 10%;
+}
+
+.sobesTable-datetime {
+    width: 40%;
+}
+
+.sobesTable-count, 
+.sobesTable-avg, 
+.sobesTable-status {
+    width: 10%; /* Стандартная ширина для остальных элементов */
+}
+
+.sobesTable-container {
+    border-radius: 10px; /* Закругленные углы контейнера */
+    overflow: hidden; /* Обрезка содержимого за границами контейнера */
+    display: flex;
+    flex-direction: column;
+  }
+
+.sobesTable-element {
+    display: flex; /* Используем Flexbox */
+    justify-content: space-between; /* Равномерно распределяем элементы */
+    align-items: center; /* Выравниваем элементы по центру вертикально */
+    padding: 10px; /* Внутренние отступы для заголовков */
+    cursor: pointer;
+    background-color: #c2c2c2; /* Фоновый цвет контейнера */
+}
+
+.sobesTable-element:hover {
+    background-color: #DDDDDD;
+}
+
+.sobesTable-element span {
+    text-align: center; /* Центрируем текст */
+    font-weight: bold; /* Выделяем текст */
+}
+
