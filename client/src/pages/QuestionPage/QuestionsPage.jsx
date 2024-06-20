@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+
 import QuestionModal from './modals/QuestionInfo' 
 import EditQuestionModal from './modals/EditQuestion'
 import EditTopicModal from './modals/EditTopic'
@@ -16,7 +17,7 @@ export default function QuestionPage() {
   const [showAddItemModal, setShowAddItemModal] = useState(false);  // модальное окно AddItem
   const [showEditQuestionModal, setShowEditQuestionModal] = useState(false); // модальное окно EditQuestion
   const [showEditTopicModal, setShowEditTopicModal] = useState(false); 
-
+  
   // Функция для загрузки данных
   async function fetchTopics() {
     const response = await fetch('http://127.0.0.1:8000/topics')
@@ -26,8 +27,8 @@ export default function QuestionPage() {
     }
   }
 
-  useEffect(() => {  // функция запускающая загрузку данных
-      fetchTopics()
+  useEffect(() => {
+    fetchTopics();
   }, [])
 
   const openQuestionModal = (question) => {
@@ -68,58 +69,81 @@ export default function QuestionPage() {
     setShowAddItemModal(false);
   }
 
-  function addItem() {
+  function addItemButton() {
     return (
-      <a href="#" className="add-item-button" onClick={() => openAddItemModal()}>+</a>
+      <a href="#" className="QuestionPage-button-addItem" onClick={
+        () => openAddItemModal()}>+</a>
     )
   }
 
-  // Нужно добавить сохранение состояния открытости details
-  function TopicTree({ topic }) {
+  function editTopicButton( topic ) {
     return (
-      <span>
+      <a href="#" className="QuestionPage-button-editTopic" onClick={
+        () => openEditTopicModal(topic)}>1</a>
+    )
+  }
+
+  function editQuestionButton( question) {
+    return (
+      <a href="#" className="QuestionPage-button-editQuestion" onClick={
+        () => openEditQuestionModal(question)}>1</a>
+    )
+  }
+
+  function questionInfoButton( question) {
+    return (
+      <a href="#" onClick={() => openQuestionModal(question)}>
+        <pre>{ question.question }</pre>
+      </a>
+    )
+  }
+
+  function TopicItem({ topic }) {
+    return (
+      <div className="QuestionPage-topicItem">
         <details open>
           <summary>{topic.name}</summary>
           <ul>
             {topic.children.map((child) => (
-                <TopicTree key={child.id} topic={child} />
+              <TopicItem key={child.id} topic={child} />
             ))}
-
-            {topic.questions.map((question) => 
-              <span key={question.id}>
-                <li key={question.id}>
-                  <a href="#" className="question" onClick={() => openQuestionModal(question)}>
-                    <pre>{question.question}</pre>
-                  </a>
-                </li>
-                <a href="#" className="edit-question-button" onClick={() => openEditQuestionModal(question)}>1</a>
-              </span>
-            )}
+            {topic.questions.map((question) => (
+              <QuestionItem key={question.id} question={question} />
+            ))}
           </ul>
         </details>
-        <a href="#" className="edit-topic-button" onClick={() => openEditTopicModal(topic)}>1</a>
-      </span>
+        { editTopicButton(topic) }
+      </div>
     )
   }
 
-  function returnTopicList(topics) {
+  function QuestionItem({ question }) {
     return (
-      <section className="tree">
-        <div>
+      <div className="QuestionPage-questionItem">
+        <li className="QuestionPage-question">
+          { questionInfoButton(question) }
+        </li>
+        { editQuestionButton(question) }
+      </div>
+    );
+  }
+
+  function topicList(topics) {
+    return (
+      <section className="QuestionPage-topicList">
           <ul>
             { topics.map((topic) =>
-                <TopicTree key={topic.id} topic={topic} />
+                <TopicItem key={topic.id} topic={topic} />
             )}
           </ul> 
-        </div>
       </section>
     )
   }
 
   return (
     <div className="QuestionsPage">
-      { returnTopicList(topics) }
-      { addItem() } 
+      { topicList(topics) }
+      { addItemButton() } 
       { showQuestionModal && <QuestionModal 
         question={selectedQuestion} 
         closeQuestionModal={closeQuestionModal} 

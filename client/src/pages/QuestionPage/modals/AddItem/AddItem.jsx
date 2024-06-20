@@ -2,7 +2,7 @@ import { useState } from 'react'
 import CreateTopicComponent from './CreateTopic'
 import CreateQuestionComponent from './CreateQuestion'
 
-import '../../styles/modals/AddItem.css'
+import '../../styles/modals/AddItem/AddItem.css'
 
 export default function AddItemModal({ topics, closeAddItemModal, fetchTopics }) {
   const [addItemType, setAddItemType] = useState("Topic");

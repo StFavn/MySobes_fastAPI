@@ -1,16 +1,16 @@
 :root {
-  --tree-bg:                    #2C2C32;
-  --topic-name-bg:              #eeeeee;
-  --question-bg:                #c2c2c2;
-  --question-hover:             #DDDDDD;
-  --edit-question-button-bg:    #c2c2c2;
-  --edit-question-button-hover: #DDDDDD;
-  --edit-topic-button-bg:       #eeeeee;
-  --edit-topic-button-hover:    #DDDDDD;
-  --addItem-button-text:        #ffffff;
-  --addItem-button-bg:          #56bbff;
-  --addItem-button-hover:       #8ed2ff;
-  --addItem-button-active:      #2C2C32;
+  --QuestionPage-topicList-bg:           #2C2C32;
+  --QuestionPage-topicItem-bg:           #eeeeee;
+  --QuestionPage-question-bg:            #c2c2c2;
+  --QuestionPage-question-h:             #DDDDDD;
+  --QuestionPage-button-editQuestion-bg: #c2c2c2;
+  --QuestionPage-button-editQuestion-h:  #DDDDDD;
+  --QuestionPage-button-editTopic-bg:    #eeeeee;
+  --QuestionPage-button-editTopic-h:     #DDDDDD;
+  --QuestionPage-button-addItem-txt:     #ffffff;
+  --QuestionPage-button-addItem-bg:      #56bbff;
+  --QuestionPage-button-addItem-h:       #8ed2ff;
+  --QuestionPage-button-addItem-a:       #2C2C32;
 }
 
 .QuestionsPage {
@@ -22,12 +22,9 @@
   margin: 0 auto;
 }
 
-.tree ul {
-  list-style-type: none; /* Убираем стандартные элементы списка */
-}
 
-.tree div {
-  background-color: var(--tree-bg);
+.QuestionPage-topicList {
+  background-color: var(--QuestionPage-topicList-bg);
   padding: 10px;
   border-radius: 10px;
   margin-bottom: 10px;
@@ -36,10 +33,19 @@
   overflow-y: auto;  /* Эффект прокрутки контента внутри блока */
 }
 
-.tree details summary {
+.QuestionPage-topicList ul {
+  list-style-type: none; /* Убираем стандартные элементы списка */
+}
+
+.QuestionPage-topicItem {
+  align-items: center; /* Выравниваем элементы по вертикали */
+  position: relative;
+}
+
+.QuestionPage-topicItem details summary {
   padding: 10px; /* Внутренние отступы для текста */
   margin-bottom: 5px; /* Отступ снизу для разделения прямоугольников */
-  background-color: var(--topic-name-bg); /* Цвет фона для заголовков подтем */
+  background-color: var(--QuestionPage-topicItem-bg); /* Цвет фона для заголовков подтем */
   font-weight: bold; /* Выделение заголовков жирным шрифтом */
   border-radius: 8px 0 0 8px;  /* сглаживание уголков прямоугольника */
   cursor: pointer; /* Курсор при наведении на заголовок */
@@ -47,17 +53,12 @@
   margin-right: 45px;
 }
 
-.tree details > summary::before {
+.QuestionPage-topicItem details > summary::before {
   padding-right: 5px; 
 }
 
-.tree span {
-  align-items: center; /* Выравниваем элементы по вертикали */
-  position: relative;
-}
-
-.tree li {
-  background-color: var(--question-bg); /* Цвет фона для прямоугольников */
+.QuestionPage-question {
+  background-color: var(--QuestionPage-question-bg); /* Цвет фона для прямоугольников */
   padding: 10px; /* Внутренние отступы для текста */
   margin-bottom: 5px; /* Отступ снизу для разделения прямоугольников */
   border-radius: 0; /* сглаживание уголков прямоугольника */
@@ -65,16 +66,16 @@
   margin-right: 45px;
 }
 
-.tree li:hover {
-  background-color: var(--question-hover); /* Изменяем цвет фона при наведении */
+.QuestionPage-question:hover {
+  background-color: var(--QuestionPage-question-h); /* Изменяем цвет фона при наведении */
 }
 
-.tree pre {
-  white-space: pre-wrap;
-  font-family: 'Roboto', sans-serif;
+.QuestionPage-questionItem {
+  align-items: center; /* Выравниваем элементы по вертикали */
+  position: relative;
 }
 
-.question {
+.QuestionPage-question a {
   display: block; /* Делаем кнопку блочным элементом */
   width: 100%; /* Занимает всю доступную ширину элемента <li> */
   height: 100%; /* Занимает всю доступную высоту элемента <li> */
@@ -82,48 +83,53 @@
   text-decoration: none; 
 }
 
-.edit-question-button {
+.QuestionPage-question pre {
+  white-space: pre-wrap;
+  font-family: 'Roboto', sans-serif;
+}
+
+.QuestionPage-button-editQuestion {
   position: absolute;
   top: 50%;
   right: 0px;
   transform: translateY(-50%);
   width: 40px;
   height: 100%;
-  background-color: var(--edit-question-button-bg); /* Цвет круглого элемента */
+  background-color: var(--QuestionPage-button-editQuestion-bg); /* Цвет круглого элемента */
   border-radius: 0x;
   cursor: pointer;
   text-align: center; /* Центрирует текст по горизонтали */
   line-height: 40px;
 }
 
-.edit-question-button:hover {
-  background-color: var(--edit-question-button-hover); /* Изменяем цвет фона при наведении */
+.QuestionPage-button-editQuestion:hover {
+  background-color: var(--QuestionPage-button-editQuestion-h); /* Изменяем цвет фона при наведении */
 }
 
-.edit-topic-button {
+.QuestionPage-button-editTopic {
   position: absolute;
   top: 20px;
   right: 0px;
   transform: translateY(-50%);
   width: 40px;
   height: 40px;
-  background-color: var(--edit-topic-button-bg); /* Цвет круглого элемента */
+  background-color: var(--QuestionPage-button-editTopic-bg); /* Цвет круглого элемента */
   border-radius: 0 8px 8px 0;
   cursor: pointer;
   text-align: center; /* Центрирует текст по горизонтали */
   line-height: 40px;
 }
 
-.edit-topic-button:hover {
-  background-color: var(--edit-topic-button-hover); /* Изменяем цвет фона при наведении */
+.QuestionPage-button-editTopic:hover {
+  background-color: var(--QuestionPage-button-editTopic-h); /* Изменяем цвет фона при наведении */
 }
 
-.add-item-button {
+.QuestionPage-button-addItem {
   font-size: 24px;
   font-weight: bold;
   cursor: pointer;
-  color: var(--addItem-button-text);
-  background-color: var(--addItem-button-bg);
+  color: var(--QuestionPage-button-addItem-txt);
+  background-color: var(--QuestionPage-button-addItem-bg);
   padding: 0px;
   display: block;
   border-radius: 20px;
@@ -132,10 +138,10 @@
   text-decoration: none;  /* Убираем подчеркивание текста */
 }
 
-.add-item-button:hover {
-  background-color: var(--addItem-button-hover); /* Изменяем цвет фона при наведении */
+.QuestionPage-button-addItem:hover {
+  background-color: var(--QuestionPage-button-addItem-h); /* Изменяем цвет фона при наведении */
 }
 
-.add-item-button:active {
-  background-color: var(--addItem-button-active);
+.QuestionPage-button-addItem:active {
+  background-color: var(--QuestionPage-button-addItem-a);
 }
