@@ -92,7 +92,8 @@ export default function QuestionPage() {
 
   function questionInfoButton( question) {
     return (
-      <a href="#" onClick={() => openQuestionModal(question)}>
+      <a href="#" className="QuestionPage-button-questionInfo" onClick={
+        () => openQuestionModal(question)}>
         <pre>{ question.question }</pre>
       </a>
     )

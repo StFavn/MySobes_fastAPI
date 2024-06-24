@@ -75,7 +75,7 @@
   position: relative;
 }
 
-.QuestionPage-question a {
+.QuestionPage-button-questionInfo {
   display: block; /* Делаем кнопку блочным элементом */
   width: 100%; /* Занимает всю доступную ширину элемента <li> */
   height: 100%; /* Занимает всю доступную высоту элемента <li> */
