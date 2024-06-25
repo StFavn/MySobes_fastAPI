@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 
+import AddSobesModal from './modals/AddSobesModal'
+
 import './styles/SobesPage.css'
 
 export default function SobesPage() {
@@ -30,7 +32,7 @@ export default function SobesPage() {
   }
 
   function SobesContainer({ sobes, index }) {
-    return (
+    return (  
       <div className='sobesTable-element'>
         <span className='sobesTable-number'>{ index + 1 }</span>
         <span className='sobesTable-datetime'>{ sobes.create_at }</span>
@@ -41,7 +43,7 @@ export default function SobesPage() {
     )
   }
 
-  function sobesSectionButtonAdd() {
+  function addItemButton() {
     return (
       <a href='#' className='sobesSection-button-add'>+</a>
     )
@@ -63,9 +65,8 @@ export default function SobesPage() {
   return (
     <div className='SobesPage'>
       { sobesSection(sobeses) }
-      { sobesSectionButtonAdd() }
+      { addItemButton() }
+      <AddSobesModal />
     </div>
   )
 }
-
-

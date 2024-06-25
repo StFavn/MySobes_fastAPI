@@ -11,12 +11,12 @@ import './styles/QuestionPage.css'
 
 export default function QuestionPage() {
   const [topics, setTopics] = useState([]) // стейт для данных одной спекции топика
-  const [selectedQuestion, setSelectedQuestion] = useState(null); // стейт для выбранного вопроса
-  const [selectedTopic, setSelectedTopic] = useState(null);
-  const [showQuestionModal, setShowQuestionModal] = useState(false); // модальное окно QuestionInfo
-  const [showAddItemModal, setShowAddItemModal] = useState(false);  // модальное окно AddItem
-  const [showEditQuestionModal, setShowEditQuestionModal] = useState(false); // модальное окно EditQuestion
-  const [showEditTopicModal, setShowEditTopicModal] = useState(false); 
+  const [selectedQuestion, setSelectedQuestion] = useState(null) // стейт для выбранного вопроса
+  const [selectedTopic, setSelectedTopic] = useState(null)
+  const [showQuestionModal, setShowQuestionModal] = useState(false) // модальное окно QuestionInfo
+  const [showAddItemModal, setShowAddItemModal] = useState(false)  // модальное окно AddItem
+  const [showEditQuestionModal, setShowEditQuestionModal] = useState(false) // модальное окно EditQuestion
+  const [showEditTopicModal, setShowEditTopicModal] = useState(false)
   
   // Функция для загрузки данных
   async function fetchTopics() {
@@ -28,45 +28,45 @@ export default function QuestionPage() {
   }
 
   useEffect(() => {
-    fetchTopics();
+    fetchTopics()
   }, [])
 
   const openQuestionModal = (question) => {
-    setSelectedQuestion(question);
-    setShowQuestionModal(true);
+    setSelectedQuestion(question)
+    setShowQuestionModal(true)
   }
 
   const closeQuestionModal = () => {
-    setShowQuestionModal(false);
-    setSelectedQuestion(null);
+    setShowQuestionModal(false)
+    setSelectedQuestion(null)
   }
 
   const openEditQuestionModal = (question) => {
-    setSelectedQuestion(question);
-    setShowEditQuestionModal(true);
+    setSelectedQuestion(question)
+    setShowEditQuestionModal(true)
   }
 
   const openEditTopicModal = (topic) => {
-    setSelectedTopic(topic);
-    setShowEditTopicModal(true);
+    setSelectedTopic(topic)
+    setShowEditTopicModal(true)
   }
 
   const closeEditQuestionModal = () => {
-    setShowEditQuestionModal(false);
-    setSelectedQuestion(null);
+    setShowEditQuestionModal(false)
+    setSelectedQuestion(null)
   }
 
   const closeEditTopicModal = () => {
-    setShowEditTopicModal(false);
-    setSelectedTopic(null);
+    setShowEditTopicModal(false)
+    setSelectedTopic(null)
   }
 
   const openAddItemModal = () => {
-    setShowAddItemModal(true);
+    setShowAddItemModal(true)
   }
 
   const closeAddItemModal = () => {
-    setShowAddItemModal(false);
+    setShowAddItemModal(false)
   }
 
   function addItemButton() {
@@ -102,12 +102,13 @@ export default function QuestionPage() {
   function TopicItem({ topic }) {
     return (
       <div className="QuestionPage-topicItem">
-        <details open>
+        <details open>  
           <summary>{topic.name}</summary>
           <ul>
             {topic.children.map((child) => (
               <TopicItem key={child.id} topic={child} />
             ))}
+
             {topic.questions.map((question) => (
               <QuestionItem key={question.id} question={question} />
             ))}
@@ -132,11 +133,11 @@ export default function QuestionPage() {
   function topicList(topics) {
     return (
       <section className="QuestionPage-topicList">
-          <ul>
-            { topics.map((topic) =>
-                <TopicItem key={topic.id} topic={topic} />
-            )}
-          </ul> 
+        <ul>
+          { topics.map((topic) =>
+              <TopicItem key={topic.id} topic={topic} />
+          )}
+        </ul> 
       </section>
     )
   }
