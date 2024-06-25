@@ -14,7 +14,7 @@ export default function QuestionModal({ question, closeQuestionModal }) {
       <div className="questionInfo-content">
         <a  href="#" className="questionInfo-button-close" onClick={closeQuestionModal}>&times;</a>
         <div className="questionInfo-question">
-          <span>{question.question}</span>
+          <pre>{question.question}</pre>
         </div>
         <div className="questionInfo-answer">
           <span>{question.answer}</span>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import TopicSelectorForModal from '../../components/TopicSelectorForModal';
+import TopicSelectorForModal from '../components/TopicSelectorForModal';
 
-import '../../styles/CreateQuestion.css'
+import '../../styles/modals/AddItem/CreateQuestion.css'
 
 export default function CreateQuestionComponent({ topics, fetchTopics }) {
   const [questionName, setQuestionName] = useState('');

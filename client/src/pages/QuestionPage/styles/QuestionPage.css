@@ -1,0 +1,147 @@
+:root {
+  --QuestionPage-topicList-bg:           #2C2C32;
+  --QuestionPage-topicItem-bg:           #eeeeee;
+  --QuestionPage-question-bg:            #c2c2c2;
+  --QuestionPage-question-h:             #DDDDDD;
+  --QuestionPage-button-editQuestion-bg: #c2c2c2;
+  --QuestionPage-button-editQuestion-h:  #DDDDDD;
+  --QuestionPage-button-editTopic-bg:    #eeeeee;
+  --QuestionPage-button-editTopic-h:     #DDDDDD;
+  --QuestionPage-button-addItem-txt:     #ffffff;
+  --QuestionPage-button-addItem-bg:      #56bbff;
+  --QuestionPage-button-addItem-h:       #8ed2ff;
+  --QuestionPage-button-addItem-a:       #2C2C32;
+}
+
+.QuestionsPage {
+  max-width: 1000px;
+  min-height: calc(100vh - 85px - 22px);
+  padding-top: 2rem;
+  padding-bottom: 1.5rem;
+  padding: 1rem;
+  margin: 0 auto;
+}
+
+
+.QuestionPage-topicList {
+  background-color: var(--QuestionPage-topicList-bg);
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+
+  height: calc(79vh); /* 100 - это вся высота интерфейска браузера */
+  overflow-y: auto;  /* Эффект прокрутки контента внутри блока */
+}
+
+.QuestionPage-topicList ul {
+  list-style-type: none; /* Убираем стандартные элементы списка */
+}
+
+.QuestionPage-topicItem {
+  align-items: center; /* Выравниваем элементы по вертикали */
+  position: relative;
+}
+
+.QuestionPage-topicItem details summary {
+  padding: 10px; /* Внутренние отступы для текста */
+  margin-bottom: 5px; /* Отступ снизу для разделения прямоугольников */
+  background-color: var(--QuestionPage-topicItem-bg); /* Цвет фона для заголовков подтем */
+  font-weight: bold; /* Выделение заголовков жирным шрифтом */
+  border-radius: 8px 0 0 8px;  /* сглаживание уголков прямоугольника */
+  cursor: pointer; /* Курсор при наведении на заголовок */
+  min-height: 40px;
+  margin-right: 45px;
+}
+
+.QuestionPage-topicItem details > summary::before {
+  padding-right: 5px; 
+}
+
+.QuestionPage-question {
+  background-color: var(--QuestionPage-question-bg); /* Цвет фона для прямоугольников */
+  padding: 10px; /* Внутренние отступы для текста */
+  margin-bottom: 5px; /* Отступ снизу для разделения прямоугольников */
+  border-radius: 0; /* сглаживание уголков прямоугольника */
+  cursor: pointer; /* Курсор при наведении на подтему */
+  margin-right: 45px;
+}
+
+.QuestionPage-question:hover {
+  background-color: var(--QuestionPage-question-h); /* Изменяем цвет фона при наведении */
+}
+
+.QuestionPage-questionItem {
+  align-items: center; /* Выравниваем элементы по вертикали */
+  position: relative;
+}
+
+.QuestionPage-button-questionInfo {
+  display: block; /* Делаем кнопку блочным элементом */
+  width: 100%; /* Занимает всю доступную ширину элемента <li> */
+  height: 100%; /* Занимает всю доступную высоту элемента <li> */
+  color: #000000;
+  text-decoration: none; 
+}
+
+.QuestionPage-question pre {
+  white-space: pre-wrap;
+  font-family: 'Roboto', sans-serif;
+}
+
+.QuestionPage-button-editQuestion {
+  position: absolute;
+  top: 50%;
+  right: 0px;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 100%;
+  background-color: var(--QuestionPage-button-editQuestion-bg); /* Цвет круглого элемента */
+  border-radius: 0x;
+  cursor: pointer;
+  text-align: center; /* Центрирует текст по горизонтали */
+  line-height: 40px;
+}
+
+.QuestionPage-button-editQuestion:hover {
+  background-color: var(--QuestionPage-button-editQuestion-h); /* Изменяем цвет фона при наведении */
+}
+
+.QuestionPage-button-editTopic {
+  position: absolute;
+  top: 20px;
+  right: 0px;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  background-color: var(--QuestionPage-button-editTopic-bg); /* Цвет круглого элемента */
+  border-radius: 0 8px 8px 0;
+  cursor: pointer;
+  text-align: center; /* Центрирует текст по горизонтали */
+  line-height: 40px;
+}
+
+.QuestionPage-button-editTopic:hover {
+  background-color: var(--QuestionPage-button-editTopic-h); /* Изменяем цвет фона при наведении */
+}
+
+.QuestionPage-button-addItem {
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  color: var(--QuestionPage-button-addItem-txt);
+  background-color: var(--QuestionPage-button-addItem-bg);
+  padding: 0px;
+  display: block;
+  border-radius: 20px;
+  text-align: center; /* Центрирует текст по горизонтали */
+  line-height: 30px;
+  text-decoration: none;  /* Убираем подчеркивание текста */
+}
+
+.QuestionPage-button-addItem:hover {
+  background-color: var(--QuestionPage-button-addItem-h); /* Изменяем цвет фона при наведении */
+}
+
+.QuestionPage-button-addItem:active {
+  background-color: var(--QuestionPage-button-addItem-a);
+}

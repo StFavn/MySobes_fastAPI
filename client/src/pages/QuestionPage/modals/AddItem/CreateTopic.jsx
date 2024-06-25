@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import TopicSelectorForModal from '../../components/TopicSelectorForModal';
+import TopicSelectorForModal from '../components/TopicSelectorForModal';
 
-import '../../styles/CreateTopic.css'
+import '../../styles/modals/AddItem/CreateTopic.css'
 
 export default function CreateTopicComponent({ topics, fetchTopics }) {
   const [parentTopic, setParentTopic] = useState(null); // parent_id
