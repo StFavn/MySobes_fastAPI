@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
 
-import AddSobesModal from './modals/AddSobesModal'
+import AddSobesModal from './modals/AddSobesModal/AddSobesModal'
 
 import './styles/SobesPage.css'
 
 export default function SobesPage() {
-  const [sobeses, setSobeses] = useState([]);
+  const [sobeses, setSobeses] = useState([])
+  const [showAddSobesModal, setShowAddSobesModal] = useState(false)
 
   async function fetchSobeses() {
     const response = await fetch('http://127.0.0.1:8000/sobeses');
@@ -18,6 +19,14 @@ export default function SobesPage() {
   useEffect(() => {
     fetchSobeses();
   }, []);
+
+  const openAddSobesModal = () => {
+    setShowAddSobesModal(true)
+  }
+
+  const closeAddSobesModal = () => {
+    setShowAddSobesModal(false)
+  }
 
   function sobesTableTitle() {
     return (
@@ -45,7 +54,7 @@ export default function SobesPage() {
 
   function addItemButton() {
     return (
-      <a href='#' className='sobesSection-button-add'>+</a>
+      <a href='#' className='sobesSection-button-add' onClick={() => openAddSobesModal()} >+</a>
     )
   }
 
@@ -66,7 +75,10 @@ export default function SobesPage() {
     <div className='SobesPage'>
       { sobesSection(sobeses) }
       { addItemButton() }
-      <AddSobesModal />
+      { showAddSobesModal && <AddSobesModal
+        closeAddSobesModal={closeAddSobesModal} 
+        fetchSobeses={fetchSobeses} 
+      /> }
     </div>
   )
 }
