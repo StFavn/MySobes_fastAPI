@@ -2,11 +2,8 @@ import '../styles/modals/QuestionInfo.css'
 
 export default function QuestionModal({ question, closeQuestionModal }) {
   const handleOverlayClick = (event) => {
-    // Проверяем, что клик был именно на затемненной области
-    if (event.target.classList.contains('questionInfo-modal')) {
-      // Закрываем модальное окно
-      closeQuestionModal();
-    }
+    const isClickOnDarkArea = event.target.classList.contains('questionInfo-modal');
+    if (isClickOnDarkArea) closeQuestionModal();
   }
 
   return (

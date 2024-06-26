@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import TopicSelectorForModal from '../components/TopicSelectorForModal';
+import TopicSelectorForModal from '../../components/TopicSelectorForModal';
 
 import '../../styles/modals/AddItem/CreateQuestion.css'
 
@@ -27,13 +27,13 @@ export default function CreateQuestionComponent({ topics, fetchTopics }) {
         })
 
         if (response.ok) {
-          console.log('Вопрос успешно создан!');
-          fetchTopics();
+          console.log('Вопрос успешно создан!')
+          fetchTopics()
         } else {
-          console.error('Ошибка при создании вопроса');
+          console.error('Ошибка при создании вопроса')
         }
       } catch (error) {
-        console.error('Произошла ошибка:', error);
+        console.error('Произошла ошибка:', error)
       }
     }
   }

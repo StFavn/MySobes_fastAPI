@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import TopicSelectorForModal from '../components/TopicSelectorForModal';
+import TopicSelectorForModal from '../../components/TopicSelectorForModal';
 
 import '../../styles/modals/AddItem/CreateTopic.css'
 

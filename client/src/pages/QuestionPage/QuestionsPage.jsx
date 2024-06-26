@@ -10,7 +10,7 @@ import './styles/QuestionPage.css'
 
 
 export default function QuestionPage() {
-  const [topics, setTopics] = useState([]) // стейт для данных одной спекции топика
+  const [topics, setTopics] = useState([])
   const [selectedQuestion, setSelectedQuestion] = useState(null) // стейт для выбранного вопроса
   const [selectedTopic, setSelectedTopic] = useState(null)
   const [showQuestionModal, setShowQuestionModal] = useState(false) // модальное окно QuestionInfo
